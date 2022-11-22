@@ -1,0 +1,1 @@
+enum NavbarItem{more,home,category,genre}
