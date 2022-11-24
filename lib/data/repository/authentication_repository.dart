@@ -25,17 +25,18 @@ class AuthenticationRepository {
       'phone': phone,
       'pass': password,
     };
-    return APIMethods().postMethod(WebLinks.signupurl, body).then((apiResponse){
-      if(apiResponse.error){
+    return APIMethods()
+        .postMethod(WebLinks.signupurl, body)
+        .then((apiResponse) {
+      if (apiResponse.error) {
         print(apiResponse.errorMessage);
         return APIResponse(
           error: true,
           errorMessage: apiResponse.errorMessage,
         );
-      }
-      else{
-        return
-        APIResponse(error: false,data: Welcome.fromJson(jsonDecode(apiResponse.data)));
+      } else {
+        return APIResponse(
+            error: false, data: Welcome.fromJson(jsonDecode(apiResponse.data)));
       }
     });
   }
@@ -53,7 +54,9 @@ class AuthenticationRepository {
           errorMessage: apiResponse.errorMessage,
         );
       } else {
-        return APIResponse(error: false, data: WelcomeLogin.fromJson(jsonDecode(apiResponse.data)));
+        return APIResponse(
+            error: false,
+            data: WelcomeLogin.fromJson(jsonDecode(apiResponse.data)));
       }
     });
   }
@@ -66,6 +69,4 @@ class AuthenticationRepository {
     await Future.delayed(Duration(seconds: 1));
     return "successfully sign in ";
   }
-
-
 }

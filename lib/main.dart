@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:skyfilmnow/categoryBloc/category_bloc.dart';
+import 'package:skyfilmnow/data/repository/mainslider_repository.dart';
 import 'package:skyfilmnow/homePageBloc/homepage_bloc.dart';
 import 'package:skyfilmnow/presentation/homepage/components/bottom_screen_page.dart';
 import 'package:skyfilmnow/presentation/homepage/home_page.dart';
@@ -19,14 +20,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(App(
     authenticationRepository: AuthenticationRepository(),
+    //mainSliderRepository: MainSliderRepository(),
   ));
 }
 
 class App extends StatelessWidget {
-  const App({Key? key, required this.authenticationRepository})
-      : super(key: key);
+  const App({
+    Key? key,
+    required this.authenticationRepository,
+    //required this.mainSliderRepository,
+  }) : super(key: key);
 
   final AuthenticationRepository authenticationRepository;
+  //final MainSliderRepository mainSliderRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +104,6 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-
             home: const MyAppView(),
           );
         },
@@ -172,7 +177,7 @@ class _MyAppViewState extends State<MyAppView> {
                         HomePage.route(),
                         (route) => false,
                       );
-                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const NewHomePage()));
+                      //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const NewHomePage()));
                       break;
                     case AuthenticationStatus.authenticated:
                       print('Hello authenticated');

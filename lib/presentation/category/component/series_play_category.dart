@@ -14,7 +14,9 @@ import '../../../movie_screens/producte.dart';
 import '../../../movie_screens/serials_file.dart';
 import '../../../theme_dark_light/change_theme.dart';
 import '../../../theme_dark_light/themes.dart';
+
 int _selectedContainerIndex = 0;
+
 class SeriesPlayCategoryScreenTheme extends StatelessWidget {
   const SeriesPlayCategoryScreenTheme({Key? key}) : super(key: key);
 
@@ -22,7 +24,8 @@ class SeriesPlayCategoryScreenTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<SharedPreferences>(
       future: SharedPreferences.getInstance(),
-      builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
         return ChangeNotifierProvider<MyDynamicTheme>.value(
           value: MyDynamicTheme(snapshot.data),
           child: SeriesPlayCategoryScreen(),
@@ -36,40 +39,38 @@ class SeriesPlayCategoryScreen extends StatefulWidget {
   const SeriesPlayCategoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<SeriesPlayCategoryScreen> createState() => _SeriesPlayCategoryScreenState();
+  State<SeriesPlayCategoryScreen> createState() =>
+      _SeriesPlayCategoryScreenState();
 }
 
 class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
-
   ///apply loader in favourites
-  applyIncrementLoader()  async{
+  applyIncrementLoader() async {
     setState(() {
       showHideContainer = true;
     });
-    await Future.delayed(Duration(seconds: 1),(){
+    await Future.delayed(Duration(seconds: 1), () {
       print("Increment");
     });
     setState(() {
       myIndexValue++;
-      myText  = "abc";
+      myText = "abc";
       showHideContainer = false;
-
     });
   }
+
   applyDecrementLoader() async {
     setState(() {
       showHideContainer = true;
     });
-    await Future.delayed(Duration(seconds: 1),(){
+    await Future.delayed(Duration(seconds: 1), () {
       print("decrement");
     });
     setState(() {
       myIndexValue--;
-      myText  = "xyz";
+      myText = "xyz";
       showHideContainer = false;
     });
-
-
   }
 
   ///select index of follow and download button
@@ -79,98 +80,119 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
       _selectedIndex = index;
     });
   }
+
   ///name of the containers in a list
-  List<String> containerInput = ["Release date","Language","Time","The product"];
+  List<String> containerInput = [
+    "Release date",
+    "Language",
+    "Time",
+    "The product"
+  ];
 
   ///change color of selected container
   List<Widget> _containerList() {
-    return List.generate(4,(index) {
+    return List.generate(4, (index) {
       return GestureDetector(
         onTap: () {
           setState(() {
             _selectedContainerIndex = index;
-            if(_selectedContainerIndex == 1){
+            if (_selectedContainerIndex == 1) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const LanguageTheme()),
               );
-
             }
-            if(_selectedContainerIndex == 3){
+            if (_selectedContainerIndex == 3) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ProductsTheme()),
               );
-
             }
           });
         },
-        child:  Provider.of<MyDynamicTheme>(context).isDarkMode ?
-        Container(
-          decoration: BoxDecoration(
-              color: _selectedContainerIndex == index ? Colors.white : Colors.transparent,
-              border: Border.all(color:  Colors.white   ),
-              borderRadius: BorderRadius.all(
-                  Radius.circular(13))),
-          alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width / 5,
-          height: 40,
-          child: Column(
-            mainAxisAlignment:
-            MainAxisAlignment.center,
-            children: [
-              Text(
-                containerInput[index],
-                style: TextStyle(color: _selectedContainerIndex == index ? Colors.black : Colors.white,
-                    fontSize: 7),
-              ),
-              Divider(
-                height: 2,color: Colors.transparent,
-              ),
-              Text(
-                "25/12/12",
-                style: TextStyle(
-                    color: _selectedContainerIndex == index ? Colors.black : Colors.white,
-                    fontSize: 7),
+        child: Provider.of<MyDynamicTheme>(context).isDarkMode
+            ? Container(
+                decoration: BoxDecoration(
+                    color: _selectedContainerIndex == index
+                        ? Colors.white
+                        : Colors.transparent,
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(13))),
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width / 5,
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      containerInput[index],
+                      style: TextStyle(
+                          color: _selectedContainerIndex == index
+                              ? Colors.black
+                              : Colors.white,
+                          fontSize: 7),
+                    ),
+                    Divider(
+                      height: 2,
+                      color: Colors.transparent,
+                    ),
+                    Text(
+                      "25/12/12",
+                      style: TextStyle(
+                          color: _selectedContainerIndex == index
+                              ? Colors.black
+                              : Colors.white,
+                          fontSize: 7),
+                    )
+                  ],
+                ),
               )
-            ],
-          ),
-        )  :
-        Container(
-          decoration: BoxDecoration(
-              color: _selectedContainerIndex == index ? Colors.blue.shade500 : Colors.white,
-              border: Border.all(color: _selectedContainerIndex == index ? Colors.blue.shade500 : Colors.grey.shade300, ),
-              borderRadius: BorderRadius.all(
-                  Radius.circular(13))),
-          alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width / 5,
-          height: 40,
-          child: Column(
-            mainAxisAlignment:
-            MainAxisAlignment.center,
-            children: [
-              Text(
-                containerInput[index],
-                style: TextStyle(color: _selectedContainerIndex == index ? Colors.white : Colors.blue.shade800,
-                    fontSize: 7),
+            : Container(
+                decoration: BoxDecoration(
+                    color: _selectedContainerIndex == index
+                        ? Colors.blue.shade500
+                        : Colors.white,
+                    border: Border.all(
+                      color: _selectedContainerIndex == index
+                          ? Colors.blue.shade500
+                          : Colors.grey.shade300,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(13))),
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width / 5,
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      containerInput[index],
+                      style: TextStyle(
+                          color: _selectedContainerIndex == index
+                              ? Colors.white
+                              : Colors.blue.shade800,
+                          fontSize: 7),
+                    ),
+                    Divider(
+                      height: 2,
+                      color: Colors.transparent,
+                    ),
+                    Text(
+                      "25/12/12",
+                      style: TextStyle(
+                          color: _selectedContainerIndex == index
+                              ? Colors.white
+                              : Colors.blue.shade800,
+                          fontSize: 7),
+                    )
+                  ],
+                ),
               ),
-              Divider(
-                height: 2,color: Colors.transparent,
-              ),
-              Text(
-                "25/12/12",
-                style: TextStyle(
-                    color: _selectedContainerIndex == index ? Colors.white : Colors.blue.shade800,
-                    fontSize: 7),
-              )
-            ],
-          ),
-        ) ,
       );
     }).toList();
   }
 
-  final DraggableScrollableController draggableScrollableController = DraggableScrollableController();
+  final DraggableScrollableController draggableScrollableController =
+      DraggableScrollableController();
   ScrollController scrollController = ScrollController();
   final double expandedHight = 150.0;
 
@@ -186,14 +208,15 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
     }
     return res;
   }
+
   final ScrollController _controller = ScrollController();
   bool bookmark = false;
   bool favourite = false;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    final width =  MediaQuery.of(context).size.width;
-    final height =  MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: Provider.of<MyDynamicTheme>(context).isDarkMode
@@ -208,13 +231,13 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                 fit: FlexFit.loose,
                 child: Container(
                   child: Stack(
-                    children:  [
+                    children: [
                       Container(
-                        height: height/3,
-                        width:  width,
+                        height: height / 3,
+                        width: width,
                         child: Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: width,
                               child: const Image(
                                 image: AssetImage("assets/rommel.png"),
@@ -222,19 +245,30 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 35,left: 20,right: 20,),
+                              padding: EdgeInsets.only(
+                                top: 35,
+                                left: 20,
+                                right: 20,
+                              ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        height: MediaQuery.of(context).size.height*0.05,
-                                        decoration:   BoxDecoration(
-                                          color: bookmark ? Colors.blue.shade800  : Colors.black54,
-                                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
+                                        decoration: BoxDecoration(
+                                          color: bookmark
+                                              ? Colors.blue.shade800
+                                              : Colors.black54,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
                                           // border: Border.all(width: 1, color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.white )
                                         ),
                                         child: IconButton(
@@ -245,39 +279,66 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
 
                                             print("Add To The Bookmark");
                                           },
-                                          icon:  bookmark ?  const Center(child: Icon(Icons.bookmark,color: Colors.white,size: 20,)) :  const Center(child: Icon(Icons.bookmark_border_rounded,color: Colors.white,size: 20,)) ,
+                                          icon: bookmark
+                                              ? const Center(
+                                                  child: Icon(
+                                                  Icons.bookmark,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                ))
+                                              : const Center(
+                                                  child: Icon(
+                                                  Icons.bookmark_border_rounded,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                )),
                                         ),
                                       ),
                                       Container(
                                         width: 10,
                                       ),
                                       Container(
-                                        height: MediaQuery.of(context).size.height*0.05,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
                                         decoration: BoxDecoration(
-                                          color: favourite ? Colors.red  : Colors.black54,
-                                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                          color: favourite
+                                              ? Colors.red
+                                              : Colors.black54,
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
                                           // border: Border.all(width: 1,color:   Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.white )
                                         ),
                                         child: IconButton(
-
                                           onPressed: () {
                                             setState(() {
                                               favourite = !favourite;
                                             });
 
-                                            print("Adding To The Favourite List");
+                                            print(
+                                                "Adding To The Favourite List");
                                           },
-                                          icon: favourite ?   const Icon(Icons.favorite,color: Colors.white,) :   const Icon(Icons.favorite_border_rounded,color: Colors.white,) ,
+                                          icon: favourite
+                                              ? const Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.white,
+                                                )
+                                              : const Icon(
+                                                  Icons.favorite_border_rounded,
+                                                  color: Colors.white,
+                                                ),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                   Container(
-                                    height: MediaQuery.of(context).size.height*0.05,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
                                     decoration: const BoxDecoration(
                                       color: Colors.black54,
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+
                                       ///border: Border.all(width: 2,  color: Colors.blueAccent ,)
                                     ),
                                     child: IconButton(
@@ -285,7 +346,10 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                         Navigator.of(context).pop();
                                         print("Back To Category Page");
                                       },
-                                      icon: const Icon(Icons.arrow_forward_ios,color: Colors.white,),
+                                      icon: const Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -295,54 +359,64 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                         ),
                       ),
                       Padding(
-                        padding:   EdgeInsets.only(top: height/3.4),
+                        padding: EdgeInsets.only(top: height / 3.4),
                         child: Container(
                             width: width,
                             decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(topRight: Radius.circular(20),topLeft:Radius.circular(20) ),
-                              color: Provider.of<MyDynamicTheme>(context).isDarkMode ? const Color(0xff3c3c3c): Colors.white ,
+                              borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  topLeft: Radius.circular(20)),
+                              color: Provider.of<MyDynamicTheme>(context)
+                                      .isDarkMode
+                                  ? const Color(0xff3c3c3c)
+                                  : Colors.white,
                             ),
                             child: Padding(
-                              padding:
-                              const EdgeInsets.only(left: 20, right: 20, top: 5),
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 5),
                               child: Column(
                                 children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.only(top: 20),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         ///********************* PlayButton Section **********************///
                                         InkWell(
                                           onTap: () {
-                                            Get.to(const SerialInCategoryScreenTheme());
+                                            Get.to(
+                                                const SerialInCategoryScreenTheme());
                                           },
                                           child: Icon(
                                             Icons.play_circle_fill_rounded,
-                                            color:Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.blue.shade800 ,
+                                            color: Provider.of<MyDynamicTheme>(
+                                                        context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.blue.shade800,
                                             size: 100,
                                           ),
-
                                         ),
 
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
                                           children: [
-                                            Text(
+                                            const Text(
                                               "sddlsdfdsf",
                                               style: TextStyle(
                                                 fontSize: 20,
-
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 8),
+                                            const Padding(
+                                              padding: EdgeInsets.only(top: 8),
                                               child: Text(
                                                 "The Anarchists",
                                                 style: TextStyle(
                                                   fontSize: 20,
-
                                                 ),
                                               ),
                                             ),
@@ -350,126 +424,184 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                             ///Icon on tab increment & decrement
 
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 15),
+                                              padding: const EdgeInsets.only(
+                                                  top: 15),
                                               child: Row(
                                                 children: <Widget>[
                                                   InkWell(
                                                     onTap: () {
-                                                      onTapFavourite = !onTapFavourite;
+                                                      onTapFavourite =
+                                                          !onTapFavourite;
                                                       //   log("on tap  " +"$onTapFavourite");
-                                                      onTapFavourite ?  applyIncrementLoader() :  applyDecrementLoader();
+                                                      onTapFavourite
+                                                          ? applyIncrementLoader()
+                                                          : applyDecrementLoader();
                                                       setState(() {});
                                                     },
-                                                    child:
-                                                    onTapFavourite  ?
-                                                    Container(
-                                                      alignment: Alignment.center,
-                                                      width: MediaQuery.of(context).size.width * 0.22,
-                                                      decoration: BoxDecoration(
-                                                          color:
-                                                          showHideContainer == true ?  Colors.yellow : Colors.red,
-                                                          borderRadius:
-                                                          const BorderRadius.all(
-                                                              Radius.circular(12))),
-                                                      height: 30,
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                        children: <Widget>[
-                                                          showHideContainer == true ?
-                                                          const SizedBox(
-                                                              height: 20,
-                                                              width: 20,
-                                                              child: CircularProgressIndicator()) : Text(
-                                                            myText,
-                                                            style: TextStyle(
-                                                                fontSize: 8,
-                                                                color: Colors.black),
-                                                          ) ,
-                                                          Text(
-                                                            myIndexValue.toString(),
-                                                            style: const TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors.black),
-                                                          ),
-                                                          Icon(
-                                                            Icons.favorite,
-                                                            size: 2,
-                                                            color: Colors.black,
+                                                    child: onTapFavourite
+                                                        ? Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.22,
+                                                            decoration: BoxDecoration(
+                                                                color: showHideContainer ==
+                                                                        true
+                                                                    ? Colors
+                                                                        .yellow
+                                                                    : Colors
+                                                                        .red,
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            12))),
+                                                            height: 30,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: <
+                                                                  Widget>[
+                                                                showHideContainer ==
+                                                                        true
+                                                                    ? const SizedBox(
+                                                                        height:
+                                                                            20,
+                                                                        width:
+                                                                            20,
+                                                                        child:
+                                                                            CircularProgressIndicator())
+                                                                    : Text(
+                                                                        myText,
+                                                                        style: const TextStyle(
+                                                                            fontSize:
+                                                                                8,
+                                                                            color:
+                                                                                Colors.black),
+                                                                      ),
+                                                                Text(
+                                                                  myIndexValue
+                                                                      .toString(),
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          13,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                                const Icon(
+                                                                  Icons
+                                                                      .favorite,
+                                                                  size: 2,
+                                                                  color: Colors
+                                                                      .black,
+                                                                )
+                                                              ],
+                                                            ),
                                                           )
-
-                                                        ],
-                                                      ),
-                                                    ):
-                                                    Container(
-                                                      alignment: Alignment.center,
-                                                      width: MediaQuery.of(context).size.width * 0.22,
-                                                      decoration: BoxDecoration(
-                                                          color:   showHideContainer == true ?  Colors.yellow : Colors.pink.shade200,
-                                                          borderRadius:
-                                                          const BorderRadius.all(
-                                                              Radius.circular(12))),
-                                                      height: 30,
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                        children: <Widget>[
-                                                          showHideContainer == true ?
-                                                          const SizedBox(
-                                                              height: 20,
-                                                              width: 20,
-                                                              child: CircularProgressIndicator()) : Text(
-                                                            myText,
-                                                            style: TextStyle(
-                                                                fontSize: 8,
-                                                                color: Colors.black),
+                                                        : Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.22,
+                                                            decoration: BoxDecoration(
+                                                                color: showHideContainer ==
+                                                                        true
+                                                                    ? Colors
+                                                                        .yellow
+                                                                    : Colors
+                                                                        .pink
+                                                                        .shade200,
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            12))),
+                                                            height: 30,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: <
+                                                                  Widget>[
+                                                                showHideContainer ==
+                                                                        true
+                                                                    ? const SizedBox(
+                                                                        height:
+                                                                            20,
+                                                                        width:
+                                                                            20,
+                                                                        child:
+                                                                            CircularProgressIndicator())
+                                                                    : Text(
+                                                                        myText,
+                                                                        style: const TextStyle(
+                                                                            fontSize:
+                                                                                8,
+                                                                            color:
+                                                                                Colors.black),
+                                                                      ),
+                                                                Text(
+                                                                  myIndexValue
+                                                                      .toString(),
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          13,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                                const Icon(
+                                                                  Icons
+                                                                      .favorite_border,
+                                                                  size: 2,
+                                                                  color: Colors
+                                                                      .black,
+                                                                )
+                                                              ],
+                                                            ),
                                                           ),
-                                                          Text(
-                                                            myIndexValue.toString(),
-                                                            style: const TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors.black),
-                                                          ),
-                                                          Icon(
-                                                            Icons.favorite_border,
-                                                            size: 2,
-                                                            color: Colors.black,
-                                                          )
-
-                                                        ],
-                                                      ),
-                                                    ),
                                                   ),
                                                   const SizedBox(width: 10),
                                                   Container(
                                                     alignment: Alignment.center,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                        0.22,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.22,
                                                     decoration: const BoxDecoration(
-                                                        color:   Colors.black26 ,
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(12))),
+                                                        color: Colors.black26,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    12))),
                                                     height: 30,
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment.spaceEvenly,
-                                                      children: <Widget>[
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: const <Widget>[
                                                         Text(
                                                           "xyz",
                                                           style: TextStyle(
                                                             fontSize: 8,
                                                           ),
                                                         ),
-                                                        const Text(
+                                                        Text(
                                                           "0",
                                                           style: TextStyle(
                                                             fontSize: 13,
                                                           ),
                                                         ),
                                                         Icon(
-                                                          Icons.mode_comment_outlined,
+                                                          Icons
+                                                              .mode_comment_outlined,
                                                           size: 2,
                                                         ),
                                                       ],
@@ -479,96 +611,122 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 15),
+                                              padding: const EdgeInsets.only(
+                                                  top: 15),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                    MainAxisAlignment.end,
                                                 children: <Widget>[
                                                   InkWell(
-                                                    onTap:(){
+                                                    onTap: () {
                                                       Navigator.push(
                                                         context,
-                                                        MaterialPageRoute(builder: (context) => const GenreThemeClass()),
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const GenreThemeClass()),
                                                       );
                                                     },
                                                     child: Container(
-                                                      height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.030,
-                                                      width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.15,
-                                                      child:   Center(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.030,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.15,
+                                                      child: Center(
                                                         child: Text(
                                                           "Drama",
                                                           style: TextStyle(
-                                                              color:Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.grey ,
+                                                              color: Provider.of<
+                                                                              MyDynamicTheme>(
+                                                                          context)
+                                                                      .isDarkMode
+                                                                  ? Colors.white
+                                                                  : Colors.grey,
                                                               fontSize: 18),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                   Container(
-                                                    color: Colors.grey ,
+                                                    color: Colors.grey,
                                                     width: 1,
-                                                    height:  height *
-                                                        0.025,
+                                                    height: height * 0.025,
                                                   ),
                                                   InkWell(
-                                                    onTap: (){
+                                                    onTap: () {
                                                       Navigator.push(
                                                         context,
-                                                        MaterialPageRoute(builder: (context) => const GenreThemeClass()),
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const GenreThemeClass()),
                                                       );
                                                     },
                                                     child: Container(
-                                                      height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.030,
-                                                      width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.15,
-                                                      child:   Center(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.030,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.15,
+                                                      child: Center(
                                                         child: Text(
                                                           "Action",
                                                           style: TextStyle(
-                                                              color:Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.grey ,
+                                                              color: Provider.of<
+                                                                              MyDynamicTheme>(
+                                                                          context)
+                                                                      .isDarkMode
+                                                                  ? Colors.white
+                                                                  : Colors.grey,
                                                               fontSize: 18),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                   Container(
-                                                    color: Colors.grey ,
+                                                    color: Colors.grey,
                                                     width: 1,
-                                                    height:  height *
-                                                        0.025,
+                                                    height: height * 0.025,
                                                   ),
                                                   InkWell(
-                                                    onTap: (){
+                                                    onTap: () {
                                                       Navigator.push(
                                                         context,
-                                                        MaterialPageRoute(builder: (context) => const GenreThemeClass()),
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const GenreThemeClass()),
                                                       );
                                                     },
                                                     child: SizedBox(
-                                                      height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.030,
-                                                      width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.15,
-                                                      child:   Center(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.030,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.15,
+                                                      child: Center(
                                                         child: Text(
                                                           "Genre",
                                                           style: TextStyle(
-                                                              color:Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.grey ,
+                                                              color: Provider.of<
+                                                                              MyDynamicTheme>(
+                                                                          context)
+                                                                      .isDarkMode
+                                                                  ? Colors.white
+                                                                  : Colors.grey,
                                                               fontSize: 18),
                                                         ),
                                                       ),
@@ -578,7 +736,8 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 10),
+                                              padding: const EdgeInsets.only(
+                                                  top: 10),
                                               child: Row(
                                                 children: <Widget>[
                                                   Text("VQ"),
@@ -586,42 +745,55 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                                     width: 2,
                                                   ),
                                                   SizedBox(
-                                                    width: 5,
-                                                    height: 5,
-                                                    child: const Image(image: AssetImage("assets/metascore-modified.png")),
-
+                                                    width: 15,
+                                                    height: 15,
+                                                    child: const Image(
+                                                        image: AssetImage(
+                                                            "assets/metascore-modified.png")),
                                                   ),
                                                   const SizedBox(
                                                     width: 4,
                                                   ),
                                                   const Text("AB"),
-                                                  const Text("/%",style: TextStyle(color: Colors.grey),),
+                                                  const Text(
+                                                    "/%",
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
                                                   const SizedBox(
                                                     width: 4,
                                                   ),
                                                   SizedBox(
-                                                    width: 7,
-                                                    height: 5,
-                                                    child: const Image(image: AssetImage("assets/imdb1.jpg"),fit: BoxFit.contain,),
-
+                                                    width: 20,
+                                                    height: 15,
+                                                    child: const Image(
+                                                      image: AssetImage(
+                                                          "assets/imdb1.jpg"),
+                                                      fit: BoxFit.contain,
+                                                    ),
                                                   ),
                                                   const SizedBox(
                                                     width: 4,
                                                   ),
                                                   Container(
                                                     decoration: const BoxDecoration(
-                                                        color:   Colors.black26 ,
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(12))),
-                                                    alignment: Alignment.centerRight,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                        0.30,
+                                                        color: Colors.black26,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    12))),
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.30,
                                                     height: 28,
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: [
                                                         Text("tt3723627"),
                                                         Text("IMBD")
@@ -632,11 +804,18 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 15),
+                                              padding: const EdgeInsets.only(
+                                                  top: 15),
                                               child: Text(
                                                 "Story",
                                                 style: TextStyle(
-                                                    color:Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.grey , fontSize: 25),
+                                                    color:
+                                                        Provider.of<MyDynamicTheme>(
+                                                                    context)
+                                                                .isDarkMode
+                                                            ? Colors.white
+                                                            : Colors.grey,
+                                                    fontSize: 25),
                                               ),
                                             ),
                                           ],
@@ -651,15 +830,21 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                       Container(
                                         alignment: Alignment.centerRight,
                                         height:
-                                        MediaQuery.of(context).size.height * 0.1,
+                                            MediaQuery.of(context).size.height *
+                                                0.1,
                                         width:
-                                        MediaQuery.of(context).size.width * 0.88,
+                                            MediaQuery.of(context).size.width *
+                                                0.88,
                                         child: Text(
                                           "Erwin Rommel (1891-1944.gfdfghgfhghjgjhghjgthghgffghf)",
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                            color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.blue.shade800 ,
+                                            color: Provider.of<MyDynamicTheme>(
+                                                        context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.blue.shade800,
                                             fontSize: 20,
                                           ),
                                           textAlign: TextAlign.right,
@@ -668,117 +853,226 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                     ],
                                   ),
 
-                                  Provider.of<MyDynamicTheme>(context).isDarkMode ?
-                                  Container(
-                                    width: width,
-                                    height: height *0.07,
-
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: data.length,
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            _onSelected(index);},
-                                          child:
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 5,left: 5),
-                                            child: Container(
-                                              width:index == 0 ? width /4 : width *0.58,
-                                              decoration: BoxDecoration(
-                                                  color:  _selectedIndex != null && _selectedIndex == index ? Colors.white : Colors.transparent,
-                                                  borderRadius: BorderRadius.circular(10),border: Border.all(  color:  Colors.white   )),
-                                              child: index == 0 ?
-                                              Center(child: Text( "Follow",
-                                                style: TextStyle(color:_selectedIndex != null && _selectedIndex == index ? Colors.black :Colors.white ), ))
-                                                  : Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text("Download",
-                                                    style: TextStyle(color:_selectedIndex != null && _selectedIndex == index ? Colors.black :Colors.white ), ),
-                                                  Icon(Icons.download,color:_selectedIndex != null && _selectedIndex == index ? Colors.black :Colors.white,size: 17,)
-                                                ],
-                                              ),
-                                            ),
+                                  Provider.of<MyDynamicTheme>(context)
+                                          .isDarkMode
+                                      ? Container(
+                                          width: width,
+                                          height: height * 0.07,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: data.length,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  _onSelected(index);
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5, left: 5),
+                                                  child: Container(
+                                                    width: index == 0
+                                                        ? width / 4
+                                                        : width * 0.58,
+                                                    decoration: BoxDecoration(
+                                                        color: _selectedIndex !=
+                                                                    null &&
+                                                                _selectedIndex ==
+                                                                    index
+                                                            ? Colors.white
+                                                            : Colors
+                                                                .transparent,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                            color:
+                                                                Colors.white)),
+                                                    child: index == 0
+                                                        ? Center(
+                                                            child: Text(
+                                                            "Follow",
+                                                            style: TextStyle(
+                                                                color: _selectedIndex !=
+                                                                            null &&
+                                                                        _selectedIndex ==
+                                                                            index
+                                                                    ? Colors
+                                                                        .black
+                                                                    : Colors
+                                                                        .white),
+                                                          ))
+                                                        : Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                "Download",
+                                                                style: TextStyle(
+                                                                    color: _selectedIndex !=
+                                                                                null &&
+                                                                            _selectedIndex ==
+                                                                                index
+                                                                        ? Colors
+                                                                            .black
+                                                                        : Colors
+                                                                            .white),
+                                                              ),
+                                                              Icon(
+                                                                Icons.download,
+                                                                color: _selectedIndex !=
+                                                                            null &&
+                                                                        _selectedIndex ==
+                                                                            index
+                                                                    ? Colors
+                                                                        .black
+                                                                    : Colors
+                                                                        .white,
+                                                                size: 17,
+                                                              )
+                                                            ],
+                                                          ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           ),
-
-                                        );
-                                      },
-                                    ),
-                                  ) :
-                                  Container(
-                                    width: width,
-                                    height: height *0.07,
-
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: data.length,
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            _onSelected(index);},
-                                          child:
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 5,left: 5),
-                                            child: Container(
-                                              width:index == 0 ? width /4 : width *0.58,
-                                              decoration: BoxDecoration(
-                                                  color:  _selectedIndex != null && _selectedIndex == index ? Colors.blue.shade500 : Colors.white,
-                                                  borderRadius: BorderRadius.circular(10),border: Border.all(  color:_selectedIndex != null && _selectedIndex == index ? Colors.blue :Colors.grey.shade300 )),
-                                              child:index == 0? Center(
-                                                  child: Text(
-                                                    "Follow",
-                                                    style: TextStyle(color:_selectedIndex != null && _selectedIndex == index ? Colors.white :Colors.blue.shade800 ), )) :
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Download",
-                                                    style: TextStyle(color:_selectedIndex != null && _selectedIndex == index ? Colors.white :Colors.blue.shade800 ), ),
-                                                  Icon(Icons.download,color:_selectedIndex != null && _selectedIndex == index ? Colors.white :Colors.blue.shade800,size: 17,)
-                                                ],
-                                              ),
-                                            ),
+                                        )
+                                      : Container(
+                                          width: width,
+                                          height: height * 0.07,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: data.length,
+                                            itemBuilder: (context, index) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  _onSelected(index);
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5, left: 5),
+                                                  child: Container(
+                                                    width: index == 0
+                                                        ? width / 4
+                                                        : width * 0.58,
+                                                    decoration: BoxDecoration(
+                                                        color: _selectedIndex !=
+                                                                    null &&
+                                                                _selectedIndex ==
+                                                                    index
+                                                            ? Colors
+                                                                .blue.shade500
+                                                            : Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                            color: _selectedIndex !=
+                                                                        null &&
+                                                                    _selectedIndex ==
+                                                                        index
+                                                                ? Colors.blue
+                                                                : Colors.grey
+                                                                    .shade300)),
+                                                    child: index == 0
+                                                        ? Center(
+                                                            child: Text(
+                                                            "Follow",
+                                                            style: TextStyle(
+                                                                color: _selectedIndex !=
+                                                                            null &&
+                                                                        _selectedIndex ==
+                                                                            index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .blue
+                                                                        .shade800),
+                                                          ))
+                                                        : Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                "Download",
+                                                                style: TextStyle(
+                                                                    color: _selectedIndex !=
+                                                                                null &&
+                                                                            _selectedIndex ==
+                                                                                index
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .blue
+                                                                            .shade800),
+                                                              ),
+                                                              Icon(
+                                                                Icons.download,
+                                                                color: _selectedIndex !=
+                                                                            null &&
+                                                                        _selectedIndex ==
+                                                                            index
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .blue
+                                                                        .shade800,
+                                                                size: 17,
+                                                              )
+                                                            ],
+                                                          ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           ),
-
-                                        );
-                                      },
-                                    ),
-                                  ) ,
+                                        ),
                                   const SizedBox(height: 15),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text("ShowingTheData",style: TextStyle(color: Colors.red),)
+                                      Text(
+                                        "ShowingTheData",
+                                        style: TextStyle(color: Colors.red),
+                                      )
                                     ],
                                   ),
                                   const SizedBox(height: 15),
 
                                   Container(
-
                                     width: double.infinity,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        ..._containerList()
-                                      ],
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[..._containerList()],
                                     ),
-                                  ) ,
+                                  ),
 
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    children:   <Widget>[
+                                    children: <Widget>[
                                       Padding(
                                         padding: EdgeInsets.only(top: 30),
                                         child: Text(
                                           "Actors",
                                           style: TextStyle(
-                                              fontSize: 30,  color:Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white: Colors.grey ),
+                                              fontSize: 30,
+                                              color:
+                                                  Provider.of<MyDynamicTheme>(
+                                                              context)
+                                                          .isDarkMode
+                                                      ? Colors.white
+                                                      : Colors.grey),
                                         ),
                                       ),
                                     ],
@@ -787,11 +1081,13 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
-                                      actorList("assets/rommel.jpg", "Ron Paul"),
+                                      actorList(
+                                          "assets/rommel.jpg", "Ron Paul"),
                                       Container(
                                         width: 10,
                                       ),
-                                      actorList("assets/rommelA.jpg", "Juan Galt"),
+                                      actorList(
+                                          "assets/rommelA.jpg", "Juan Galt"),
                                     ],
                                   ),
 
@@ -799,7 +1095,7 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                     padding: const EdgeInsets.only(top: 15),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Container(
                                           width: 50,
@@ -812,13 +1108,11 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                               onTap: () {},
                                               child: Icon(
                                                 Icons.add,
-
                                               )),
                                         ),
                                         const Text(
                                           "Comments",
-                                          style: TextStyle(
-                                              fontSize: 18),
+                                          style: TextStyle(fontSize: 18),
                                         ),
                                       ],
                                     ),
@@ -843,15 +1137,16 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                   ),
                                   const SizedBox(height: 10),
                                   Padding(
-                                    padding:
-                                    const EdgeInsets.only(top: 35, bottom: 10),
+                                    padding: const EdgeInsets.only(
+                                        top: 35, bottom: 10),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: const <Widget>[
                                         Text(
                                           "Suggested Movies",
                                           style: TextStyle(
-                                              fontSize: 30, color: Colors.white),
+                                              fontSize: 30,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -860,7 +1155,8 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                   ///******************** Suggested Movies Section ****************///
                                   Container(
                                     width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height * 0.30,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.30,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       // physics: const NeverScrollableScrollPhysics(),
@@ -869,9 +1165,11 @@ class _SeriesPlayCategoryScreenState extends State<SeriesPlayCategoryScreen> {
                                       itemBuilder: (context, index) {
                                         return suggestedMovie(
                                             "assets/harem.png",
-                                            const Icon(Icons.ac_unit_rounded,color: Colors.yellow,),
-                                            context
-                                        );
+                                            const Icon(
+                                              Icons.ac_unit_rounded,
+                                              color: Colors.yellow,
+                                            ),
+                                            context);
                                       },
                                     ),
                                   ),

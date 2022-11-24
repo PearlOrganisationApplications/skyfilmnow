@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -5,8 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
 
 import 'package:skyfilmnow/Serial%20Screen/serial_about_play_screen.dart';
-import 'package:skyfilmnow/movie_screens/movie_play_and_about_section.dart';
+import 'package:skyfilmnow/models/mainslider/mainslider.dart';
+import 'package:skyfilmnow/models/mainslider/mainslidermodel.dart';
 
+import 'package:skyfilmnow/movie_screens/movie_play_and_about_section.dart';
 
 import 'package:skyfilmnow/Serial%20Screen/serial_page.dart';
 import 'package:skyfilmnow/presentation/category/component/movie_play_category.dart';
@@ -20,10 +24,11 @@ import '../../../data/utils.dart';
 import '../../../resources/color_manager.dart';
 import '../../../theme_dark_light/change_theme.dart';
 
+import '../../../urlLinks/links.dart';
 import '../../more/profile.dart';
 import 'dubbed_movies.dart';
 import 'last_updated_movies.dart';
-
+import 'package:http/http.dart' as http;
 import 'myProfile.dart';
 
 Future changeBottomNavigationBarColorIntoBlack() async {
@@ -79,8 +84,7 @@ class _HomePageInitialState extends State<HomePageInitial> {
 
   bool isDarkMode = false;
   bool serial = false;
-  bool movies=false;
-
+  bool movies = false;
 
   void changeTheme(bool set, BuildContext context) {
     ///Call setDarkMode method inside our Settings ChangeNotifier class to
@@ -104,6 +108,24 @@ class _HomePageInitialState extends State<HomePageInitial> {
     });
   }
 
+  Future<List<MainSlider>?> getMainSlider() async {
+    final response = await http.get(Uri.parse(WebLinks.mainslider));
+    List<MainSlider> mainslidermodeldata = [];
+    if (response.statusCode == 200) {
+      var jsondata = jsonDecode(response.body);
+      var mainslider = jsondata['message'];
+
+      for (Map item in mainslider) {
+        // mainslidermodeldata.add(MainSlider.fromJson(item));
+      }
+    }
+  }
+
+  void initstate() {
+    super.initState();
+    // getMainSlider();
+  }
+
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
@@ -118,41 +140,42 @@ class _HomePageInitialState extends State<HomePageInitial> {
               child: AppBar(
                 actions: [
                   Padding(
-                      padding: EdgeInsets.only(
-                          left: constraints.maxWidth * 0.01,
-                          right: constraints.maxWidth * 0.02,
-                          top: constraints.maxHeight * 0.01,
-                          bottom: constraints.maxHeight * 0.01),
-                      child: IconButton(
-                        icon: changeBottomNavigationColor
-                            ? Icon(
-                                Icons.light_mode,
-                                color: Provider.of<MyDynamicTheme>(context)
-                                        .isDarkMode
-                                    ? Colors.white
-                                    : Colors.black,
-                              )
-                            : Icon(
-                                Icons.dark_mode,
-                                color: Provider.of<MyDynamicTheme>(context)
-                                        .isDarkMode
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                        onPressed: () {
-                          changeBottomNavigationColor =
-                              !changeBottomNavigationColor;
-                          setState(() {
-                            changeTheme(
-                                Provider.of<MyDynamicTheme>(context,
-                                            listen: false)
-                                        .isDarkMode
-                                    ? false
-                                    : true,
-                                context);
-                          });
-                        },
-                      )),
+                    padding: EdgeInsets.only(
+                        left: constraints.maxWidth * 0.01,
+                        right: constraints.maxWidth * 0.02,
+                        top: constraints.maxHeight * 0.01,
+                        bottom: constraints.maxHeight * 0.01),
+                    child: IconButton(
+                      icon: changeBottomNavigationColor
+                          ? Icon(
+                              Icons.light_mode,
+                              color: Provider.of<MyDynamicTheme>(context)
+                                      .isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                            )
+                          : Icon(
+                              Icons.dark_mode,
+                              color: Provider.of<MyDynamicTheme>(context)
+                                      .isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                      onPressed: () {
+                        changeBottomNavigationColor =
+                            !changeBottomNavigationColor;
+                        setState(() {
+                          changeTheme(
+                              Provider.of<MyDynamicTheme>(context,
+                                          listen: false)
+                                      .isDarkMode
+                                  ? false
+                                  : true,
+                              context);
+                        });
+                      },
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                         left: constraints.maxWidth * 0.01,
@@ -284,6 +307,8 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const MoviePlayAndAboutSection()));
+
+                                //getMainSlider();
                               },
                               child: Stack(
                                 children: [
@@ -305,43 +330,44 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                             fit: BoxFit.cover,
                                           ))),
                                   Positioned(
-                                      top: 10,
-                                      left: 10,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              color: Colors.black54,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8))),
-                                          child: Text(
-                                            numbers[index].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.yellow),
-                                          ),
+                                    top: 10,
+                                    left: 10,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 35,
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.black54,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8))),
+                                      child: Text(
+                                        numbers[index].toString(),
+                                        style: const TextStyle(
+                                            color: Colors.yellow),
                                       ),
+                                    ),
                                   ),
                                   Positioned(
-                                      bottom: 5,
-                                      left: 25,
-                                      right:25 ,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 60,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              color: Colors.transparent,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8))),
-                                          child: Text(
-                                            MoviesName[index]['movie_name'],
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 15.0,),
-                                          ),
+                                    bottom: 5,
+                                    left: 25,
+                                    right: 25,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 60,
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8))),
+                                      child: Text(
+                                        MoviesName[index]['movie_name'],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15.0,
+                                        ),
                                       ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -377,23 +403,26 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        turkish?
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const TurkishSerialsTheme()),
-                                        ):western ?
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                              const WesternSerialsTheme()),
-                                        ): Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                            builder: (context) =>
-                                        const EasternSerialsTheme()),);
+                                        turkish
+                                            ? Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const TurkishSerialsTheme()),
+                                              )
+                                            : western
+                                                ? Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const WesternSerialsTheme()),
+                                                  )
+                                                : Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const EasternSerialsTheme()),
+                                                  );
                                       },
                                       child: Container(
                                         child: Row(
@@ -578,253 +607,292 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                 },
                               ),
                             ),
-
                       SizedBox(
                         height: constraints.maxHeight * 0.05,
-                      ), turkish ==true ?
-                      Container(
-                        width: constraints.maxHeight,
-                        height: constraints.maxHeight * 0.30,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SerialPlayAndAboutSection(),),);
-                              },
-                              child: Stack(
-                                children: [
-                                  Container(
-                                      width: constraints.maxWidth * 0.35,
-                                      margin: EdgeInsets.only(
-                                        left: constraints.maxWidth * 0.03,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          // color: Colors.blue,
-
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/anime.png",
-                                            fit: BoxFit.cover,
-                                          ))),
-                                  Positioned(
-                                      top: constraints.maxHeight / 80,
-                                      left: constraints.maxHeight / 40,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              color: Colors.black54,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8),)
-                                            ,),
-                                          child: Text(
-                                            TurkishSerials[index]['id'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.yellow),
-                                          ),
-                                      ),
-                                  ),
-                                  Positioned(
-                                    bottom: constraints.maxHeight / 15,
-                                    left: 17,
-                                    right: 9,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 60,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(8),)
-                                        ,),
-                                      child: Text(
-                                        TurkishSerials[index]['serial_name'].toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white,fontSize: 15,fontWeight: FontWeight.w400,),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ):western==true?
-                      Container(
-                        width: constraints.maxHeight,
-                        height: constraints.maxHeight * 0.30,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        const SerialPlayAndAboutSection()));
-                              },
-                              child: Stack(
-                                children: [
-                                  Container(
-                                      width: constraints.maxWidth * 0.35,
-                                      margin: EdgeInsets.only(
-                                        left: constraints.maxWidth * 0.03,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        // color: Colors.blue,
-
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/harem.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                      ),
-                                  ),
-                                  Positioned(
-                                      top: constraints.maxHeight / 80,
-                                      left: constraints.maxHeight / 40,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              color: Colors.black54,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8))),
-                                          child: Text(
-                                            WesternSerials[index]['id'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.yellow),
-                                          ),
-                                      ),
-                                  ),Positioned(
-                                    bottom: constraints.maxHeight / 16,
-                                    left: 15,
-                                    right: 9,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 60,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Text(
-                                        WesternSerials[index]['serial_name'].toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15.0,),
-                                      ),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ):Container(
-                        width: constraints.maxHeight,
-                        height: constraints.maxHeight * 0.30,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        const SerialPlayAndAboutSection()));
-                              },
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: constraints.maxWidth * 0.35,
-                                    margin: EdgeInsets.only(
-                                      left: constraints.maxWidth * 0.03,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      // color: Colors.blue,
-
-                                        borderRadius:
-                                        BorderRadius.circular(10)),
-                                    child: ClipRRect(
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                      child: Image.asset(
-                                        "assets/harem.png",
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: constraints.maxHeight / 80,
-                                    left: constraints.maxHeight / 40,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 35,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.black54,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Text(
-                                        EasternSerials[index]['id'].toString(),
-                                        style: const TextStyle(
-                                            color: Colors.yellow),
-                                      ),
-                                    ),
-                                  ),Positioned(
-                                    bottom: constraints.maxHeight / 16,
-                                    left: 20,
-                                    right: 20,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 60,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Text(
-                                        EasternSerials[index]['serial_name'].toString(),
-                                        style: const TextStyle(
-                                          color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15.0,),
-                                      ),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            );
-                          },
-                        ),
                       ),
+                      turkish == true
+                          ? Container(
+                              width: constraints.maxHeight,
+                              height: constraints.maxHeight * 0.30,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: 5,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SerialPlayAndAboutSection(),
+                                        ),
+                                      );
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                            width: constraints.maxWidth * 0.35,
+                                            margin: EdgeInsets.only(
+                                              left: constraints.maxWidth * 0.03,
+                                            ),
+                                            decoration: BoxDecoration(
+                                                // color: Colors.blue,
 
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  "assets/anime.png",
+                                                  fit: BoxFit.cover,
+                                                ))),
+                                        Positioned(
+                                          top: constraints.maxHeight / 80,
+                                          left: constraints.maxHeight / 40,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            width: 35,
+                                            height: 35,
+                                            decoration: const BoxDecoration(
+                                              color: Colors.black54,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              TurkishSerials[index]['id']
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.yellow),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: constraints.maxHeight / 15,
+                                          left: 17,
+                                          right: 9,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            width: 60,
+                                            height: 35,
+                                            decoration: const BoxDecoration(
+                                              color: Colors.transparent,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              TurkishSerials[index]
+                                                      ['serial_name']
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : western == true
+                              ? Container(
+                                  width: constraints.maxHeight,
+                                  height: constraints.maxHeight * 0.30,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    // physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SerialPlayAndAboutSection()));
+                                        },
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              width:
+                                                  constraints.maxWidth * 0.35,
+                                              margin: EdgeInsets.only(
+                                                left:
+                                                    constraints.maxWidth * 0.03,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  // color: Colors.blue,
+
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  "assets/harem.png",
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: constraints.maxHeight / 80,
+                                              left: constraints.maxHeight / 40,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 35,
+                                                height: 35,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.black54,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                8))),
+                                                child: Text(
+                                                  WesternSerials[index]['id']
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.yellow),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight / 16,
+                                              left: 15,
+                                              right: 9,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 60,
+                                                height: 35,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.transparent,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                8))),
+                                                child: Text(
+                                                  WesternSerials[index]
+                                                          ['serial_name']
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 15.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+                              : Container(
+                                  width: constraints.maxHeight,
+                                  height: constraints.maxHeight * 0.30,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    // physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SerialPlayAndAboutSection()));
+                                        },
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              width:
+                                                  constraints.maxWidth * 0.35,
+                                              margin: EdgeInsets.only(
+                                                left:
+                                                    constraints.maxWidth * 0.03,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  // color: Colors.blue,
+
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  "assets/harem.png",
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: constraints.maxHeight / 80,
+                                              left: constraints.maxHeight / 40,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 35,
+                                                height: 35,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.black54,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                8))),
+                                                child: Text(
+                                                  EasternSerials[index]['id']
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.yellow),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom:
+                                                  constraints.maxHeight / 16,
+                                              left: 20,
+                                              right: 20,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 60,
+                                                height: 35,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.transparent,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                8))),
+                                                child: Text(
+                                                  EasternSerials[index]
+                                                          ['serial_name']
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 15.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                       SizedBox(
                         height: constraints.maxHeight * 0.03,
                       ),
@@ -943,22 +1011,22 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                             fit: BoxFit.cover,
                                           ))),
                                   Positioned(
-                                      top: constraints.maxHeight / 80,
-                                      left: constraints.maxHeight / 40,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              color: Colors.black54,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8))),
-                                          child: Text(
-                                            MoviesName[index]['id'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.yellow),
-                                          ),
+                                    top: constraints.maxHeight / 80,
+                                    left: constraints.maxHeight / 40,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 35,
+                                      height: 35,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.black54,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8))),
+                                      child: Text(
+                                        MoviesName[index]['id'].toString(),
+                                        style: const TextStyle(
+                                            color: Colors.yellow),
                                       ),
+                                    ),
                                   ),
                                   Positioned(
                                     bottom: constraints.maxHeight / 20,
@@ -973,10 +1041,13 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8))),
                                       child: Text(
-                                         MoviesName[index]['movie_name'].toString(),
-
+                                        MoviesName[index]['movie_name']
+                                            .toString(),
                                         style: const TextStyle(
-                                            color: Colors.white,fontSize: 15,fontWeight: FontWeight.w400,),
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -1014,18 +1085,18 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                       _selectedIndex1==0?
-
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SerialDubbedTheme()),
-                                        ):Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                            builder: (context) =>
-                                        const DubbedmoviesTheme()));
+                                        _selectedIndex1 == 0
+                                            ? Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const SerialDubbedTheme()),
+                                              )
+                                            : Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const DubbedmoviesTheme()));
                                       },
                                       child: Container(
                                         child: Row(
@@ -1167,14 +1238,15 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                                     ? Colors.blue
                                                     : Colors.grey.shade300)),
                                         child: Center(
-                                            child: Text(
-                                          serials[index]['name'],
-                                          style: TextStyle(
-                                              color: _selectedIndex1 != null &&
-                                                      _selectedIndex1 == index
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
+                                          child: Text(
+                                            serials[index]['name'],
+                                            style: TextStyle(
+                                                color: _selectedIndex1 !=
+                                                            null &&
+                                                        _selectedIndex1 == index
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                          ),
                                         ),
                                       ),
                                     );
@@ -1184,174 +1256,182 @@ class _HomePageInitialState extends State<HomePageInitial> {
                       ),
                       SizedBox(
                         height: constraints.maxHeight * 0.03,
-                      ),movies==true?
-                      Container(
-                        width: constraints.maxHeight,
-                        height: constraints.maxHeight * 0.30,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SerialPlayAndAboutSection()));
-                              },
-                              child: Stack(
-                                children: [
-                                  Container(
-                                      width: constraints.maxWidth * 0.35,
-                                      margin: EdgeInsets.only(
-                                        left: constraints.maxWidth * 0.03,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          // color: Colors.blue,
-
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/anime.png",
-                                            fit: BoxFit.cover,
-                                          ))),
-                                  Positioned(
-                                      top: constraints.maxHeight / 80,
-                                      left: constraints.maxHeight / 40,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              color: Colors.black54,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8))),
-                                          child: Text(
-                                            DubbedSerialsMovies[index]['id'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.yellow),
-                                          ),
-                                      ),
-                                  ),
-                                  Positioned(
-                                    bottom: constraints.maxHeight / 15,
-                                    right: 5,
-                                    left: 13,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 50,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Text(
-                                        DubbedSerialsMovies[index]['movie_name'],
-                                        style:const  TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15.0,),
-                                      ),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ):Container(
-                        width: constraints.maxHeight,
-                        height: constraints.maxHeight * 0.30,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SerialPlayAndAboutSection(),),);
-                              },
-                              child: Stack(
-                                children: [
-                                  Container(
-                                      width: constraints.maxWidth * 0.35,
-                                      margin: EdgeInsets.only(
-                                        left: constraints.maxWidth * 0.03,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        // color: Colors.blue,
-
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/dummy_pic.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                      ),
-                                  ),
-                                  Positioned(
-                                      top: constraints.maxHeight / 80,
-                                      left: constraints.maxHeight / 40,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              color: Colors.black54,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8))),
-                                          child: Text(
-                                            DubbedSerialsMovies[index]['id'].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.yellow),
-                                          ),
-                                      ),
-                                  ),
-                                  Positioned(
-                                    bottom: constraints.maxHeight / 20,
-                                    right: 5,
-                                    left: 13,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 60,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8),
-                                          ),
-                                      ),
-                                      child: Text(
-                                        DubbedSerialsMovies[index]['serial_name'],
-                                        style:const  TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15.0,),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
                       ),
+                      movies == true
+                          ? Container(
+                              width: constraints.maxHeight,
+                              height: constraints.maxHeight * 0.30,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: 5,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MoviePlayTheme()));
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                            width: constraints.maxWidth * 0.35,
+                                            margin: EdgeInsets.only(
+                                              left: constraints.maxWidth * 0.03,
+                                            ),
+                                            decoration: BoxDecoration(
+                                                // color: Colors.blue,
 
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  "assets/anime.png",
+                                                  fit: BoxFit.cover,
+                                                ))),
+                                        Positioned(
+                                          top: constraints.maxHeight / 80,
+                                          left: constraints.maxHeight / 40,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            width: 35,
+                                            height: 35,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.black54,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8))),
+                                            child: Text(
+                                              DubbedSerialsMovies[index]['id']
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.yellow),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: constraints.maxHeight / 15,
+                                          right: 5,
+                                          left: 13,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            width: 50,
+                                            height: 35,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8))),
+                                            child: Text(
+                                              DubbedSerialsMovies[index]
+                                                  ['movie_name'],
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 15.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : Container(
+                              width: constraints.maxHeight,
+                              height: constraints.maxHeight * 0.30,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: 5,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SerialPlayAndAboutSection(),
+                                        ),
+                                      );
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: constraints.maxWidth * 0.35,
+                                          margin: EdgeInsets.only(
+                                            left: constraints.maxWidth * 0.03,
+                                          ),
+                                          decoration: BoxDecoration(
+                                              // color: Colors.blue,
+
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.asset(
+                                              "assets/dummy_pic.png",
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: constraints.maxHeight / 80,
+                                          left: constraints.maxHeight / 40,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            width: 35,
+                                            height: 35,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.black54,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8))),
+                                            child: Text(
+                                              DubbedSerialsMovies[index]['id']
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.yellow),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: constraints.maxHeight / 20,
+                                          right: 5,
+                                          left: 13,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            width: 60,
+                                            height: 35,
+                                            decoration: const BoxDecoration(
+                                              color: Colors.transparent,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              DubbedSerialsMovies[index]
+                                                  ['serial_name'],
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 15.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                       SizedBox(
                         height: constraints.maxHeight * 0.03,
                       ),

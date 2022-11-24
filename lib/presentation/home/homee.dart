@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skyfilmnow/presentation/home/component/homepage_inital.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:skyfilmnow/urlLinks/links.dart';
 import '../../homePageBloc/homepage_bloc.dart';
 import '../../homePageBloc/homepage_state.dart';
 import '../../theme_dark_light/change_theme.dart';
@@ -18,7 +21,8 @@ class HomeTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<SharedPreferences>(
       future: SharedPreferences.getInstance(),
-      builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
         return ChangeNotifierProvider<MyDynamicTheme>.value(
           value: MyDynamicTheme(snapshot.data),
           child: Home(),
@@ -40,24 +44,18 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       theme: Provider.of<MyDynamicTheme>(context).isDarkMode
           ? setDarkTheme
           : setLightTheme,
       home: Scaffold(
-
         resizeToAvoidBottomInset: false,
-        body: BlocBuilder<HomePageBloc ,HomePageState>(
-            builder: (context,state)
-            {
-
-              if(state is HomePageInitialState  )
-              {
-                return const HomePageInitial();
-              }
-              return Container();
-
-            }),
+        body:
+            BlocBuilder<HomePageBloc, HomePageState>(builder: (context, state) {
+          if (state is HomePageInitialState) {
+            return const HomePageInitial();
+          }
+          return Container();
+        }),
       ),
     );
   }
