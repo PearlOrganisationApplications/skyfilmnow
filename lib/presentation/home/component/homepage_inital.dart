@@ -78,6 +78,8 @@ class HomePageInitial extends StatefulWidget {
 }
 
 class _HomePageInitialState extends State<HomePageInitial> {
+  //late Future<MainSlider?> mainslider;
+
   bool turkish = false;
   bool western = false;
   bool allregion = false;
@@ -108,22 +110,28 @@ class _HomePageInitialState extends State<HomePageInitial> {
     });
   }
 
-  Future<List<MainSlider>?> getMainSlider() async {
-    final response = await http.get(Uri.parse(WebLinks.mainslider));
-    List<MainSlider> mainslidermodeldata = [];
+  List<MainSlider> mainslider = [];
+  Future<MainSlider?> getMainSlider() async {
+    final response = await http.get(
+        Uri.parse(
+          WebLinks.mainslider,
+        ),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        });
+    // List<MainSlider>? mainslidermodeldata = [];
     if (response.statusCode == 200) {
       var jsondata = jsonDecode(response.body);
-      var mainslider = jsondata['message'];
 
-      for (Map item in mainslider) {
-        // mainslidermodeldata.add(MainSlider.fromJson(item));
-      }
+      //jsondata.foreach((key, value) => mainslider.add(value));
+      return MainSlider.fromJson(jsondata);
     }
   }
 
   void initstate() {
     super.initState();
-    // getMainSlider();
+    getMainSlider();
   }
 
   @override
@@ -291,90 +299,122 @@ class _HomePageInitialState extends State<HomePageInitial> {
                       const SizedBox(
                         height: 30,
                       ),
+
                       SizedBox(
                         width: constraints.maxHeight,
                         height: constraints.maxHeight * 0.25,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MoviePlayAndAboutSection()));
+                        child: FutureBuilder<MainSlider?>(
+                            future: getMainSlider(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                // List<MainSlider> mainslider = snapshot.data!;
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MoviePlayAndAboutSection()));
 
-                                //getMainSlider();
-                              },
-                              child: Stack(
-                                children: [
-                                  Container(
-                                      width: constraints.maxWidth * 0.72,
-                                      margin: EdgeInsets.only(
-                                          left: constraints.maxWidth * 0.01,
-                                          right: constraints.maxWidth * 0.02),
-                                      decoration: BoxDecoration(
-                                          // color: Colors.blue,
+                                        // ignore: avoid_print
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            width: constraints.maxWidth * 0.72,
+                                            margin: EdgeInsets.only(
+                                                left:
+                                                    constraints.maxWidth * 0.01,
+                                                right: constraints.maxWidth *
+                                                    0.02),
+                                            decoration: BoxDecoration(
+                                                // color: Colors.blue,
 
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/dummy_pic.png",
-                                            fit: BoxFit.cover,
-                                          ))),
-                                  Positioned(
-                                    top: 10,
-                                    left: 10,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 35,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.black54,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Text(
-                                        numbers[index].toString(),
-                                        style: const TextStyle(
-                                            color: Colors.yellow),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.network(
+                                                snapshot
+                                                    .data!.message.the0.poster,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              //     Image.asset(
+                                              //   "assets/dummy_pic.png",
+                                              //   fit: BoxFit.cover,
+                                              // ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 10,
+                                            left: 10,
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: 35,
+                                              height: 35,
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.black54,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8))),
+                                              child: Text(
+                                                numbers[index].toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.yellow),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 5,
+                                            left: 25,
+                                            right: 25,
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: 60,
+                                              height: 35,
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.transparent,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8))),
+                                              child: Text(
+                                                snapshot
+                                                    .data!.message.the0.msName,
+                                                // MoviesName[index]['movie_name'],
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 5,
-                                    left: 25,
-                                    right: 25,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 60,
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Text(
-                                        MoviesName[index]['movie_name'],
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                                    );
+                                  },
+                                );
+                              }
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }),
                       ),
+
+                      // SizedBox(
+                      //   width: constraints.maxHeight,
+                      //   height: constraints.maxHeight * 0.25,
+
+                      //   // child:
+                      //   //
+                      // ),
                       SizedBox(
                         height: constraints.maxHeight * 0.03,
                       ),
@@ -530,14 +570,15 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                                 : Colors.grey.shade300,
                                           )),
                                       child: Center(
-                                          child: Text(
-                                        placedata[index]['name'],
-                                        style: TextStyle(
-                                            color: _selectedIndex != null &&
-                                                    _selectedIndex == index
-                                                ? Colors.black
-                                                : Colors.white),
-                                      )),
+                                        child: Text(
+                                          placedata[index]['name'],
+                                          style: TextStyle(
+                                              color: _selectedIndex != null &&
+                                                      _selectedIndex == index
+                                                  ? Colors.black
+                                                  : Colors.white),
+                                        ),
+                                      ),
                                     ),
                                   );
                                 },

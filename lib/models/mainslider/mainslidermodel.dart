@@ -1,73 +1,54 @@
-import 'dart:convert';
-
-// MainSlider mainSliderFromJson(String str) =>
-//     MainSlider.fromJson(json.decode(str));
-
-// String mainSliderToJson(MainSlider data) => json.encode(data.toJson());
-
-class MainSlider {
-  MainSlider({
-    required this.response,
-    required this.message,
-  });
-
+class MainSliderModel {
   String response;
-  Message message;
+  List<MessageData> messagedata;
 
-  factory MainSlider.fromJson(Map<String, dynamic> json) => MainSlider(
-        response: json["response"],
-        message: Message.fromJson(json["message"]),
-      );
+  MainSliderModel({
+    required this.response,
+    required this.messagedata,
+  });
+  factory MainSliderModel.fromjson(Map<String, dynamic> json) =>
+      MainSliderModel(
+          response: json['response'],
+          messagedata: List<MessageData>.from(
+              json['message'].map((x) => MessageData.fromjson(x))));
 
   Map<String, dynamic> toJson() => {
         "response": response,
-        "message": message.toJson(),
+        "message": List<dynamic>.from(messagedata.map((x) => x.toJson())),
       };
 }
 
-class Message {
-  Message({
+class MessageData {
+  List<The0> the0;
+  List<The0> the1;
+  List<The0> the2;
+  List<MessagePoster> messageposter;
+
+  MessageData({
     required this.the0,
     required this.the1,
     required this.the2,
-    //required this.posterData,
+    required this.messageposter,
   });
 
-  The0 the0;
-  The0 the1;
-  The0 the2;
-  //MessagePosterData posterData;
-
-  factory Message.fromJson(Map<String, dynamic> json) => Message(
-        the0: The0.fromJson(json["0"]),
-        the1: The0.fromJson(json["1"]),
-        the2: The0.fromJson(json["2"]),
-        // posterData: MessagePosterData.fromJson(jsonDecode(json["poster_data"])),
-      );
-
+  factory MessageData.fromjson(Map<String, dynamic> json) => MessageData(
+      the0:
+          List<The0>.from(json['message']['the0'].map((x) => The0.fromJson(x))),
+      the1:
+          List<The0>.from(json['message']['the0'].map((x) => The0.fromJson(x))),
+      the2:
+          List<The0>.from(json['message']['the0'].map((x) => The0.fromJson(x))),
+      messageposter: List<MessagePoster>.from(
+          json['message']['the0'].map((x) => The0.fromJson(x))));
   Map<String, dynamic> toJson() => {
-        "0": the0.toJson(),
-        "1": the1.toJson(),
-        "2": the2.toJson(),
-        // "poster_data": posterData.toJson(),
+        "0": List<dynamic>.from(the0.map((x) => x.toJson())),
+        "1": List<dynamic>.from(the1.map((x) => x.toJson())),
+        "2": List<dynamic>.from(the2.map((x) => x.toJson())),
+        "poster_data": List<dynamic>.from(messageposter.map((x) => x.toJson())),
       };
 }
 
-class MessagePosterData {
-  MessagePosterData({
-    required this.id,
-    required this.serialTypeReal,
-    required this.serId,
-    required this.serName,
-    required this.season,
-    required this.data,
-    required this.slug,
-    required this.status,
-    required this.serCaty,
-    required this.orderInc,
-    required this.createdDate,
-  });
-
+class MessagePoster {
   int id;
   String serialTypeReal;
   String serId;
@@ -80,8 +61,20 @@ class MessagePosterData {
   String orderInc;
   DateTime createdDate;
 
-  factory MessagePosterData.fromJson(Map<String, dynamic> json) =>
-      MessagePosterData(
+  MessagePoster({
+    required this.id,
+    required this.serialTypeReal,
+    required this.serId,
+    required this.serName,
+    required this.season,
+    required this.data,
+    required this.slug,
+    required this.status,
+    required this.serCaty,
+    required this.orderInc,
+    required this.createdDate,
+  });
+  factory MessagePoster.fromJson(Map<String, dynamic> json) => MessagePoster(
         id: int.parse(json["id"]),
         serialTypeReal: json["serial_type_real"],
         serId: json["ser_id"],
@@ -112,6 +105,15 @@ class MessagePosterData {
 }
 
 class The0 {
+  String id;
+  String poster;
+  String msName;
+  String type;
+  String status;
+  String mid;
+  DateTime created;
+  List<The0Poster> posterData;
+
   The0({
     required this.id,
     required this.poster,
@@ -120,32 +122,18 @@ class The0 {
     required this.status,
     required this.mid,
     required this.created,
-    //required this.posterData,
+    required this.posterData,
   });
-
-  int id;
-  String poster;
-  String msName;
-  String type;
-  String status;
-  String mid;
-  DateTime created;
-  //List<The0PosterData> posterData;
-
   factory The0.fromJson(Map<String, dynamic> json) => The0(
-        id: int.parse(json["id"]),
-        poster: json["poster"],
-        msName: json["ms_name"],
-        type: json["type"],
-        status: json["status"],
-        mid: json["mid"],
-        created: DateTime.parse(json["created"]),
-        // posterData: List<The0PosterData>.from(
-        //     json['poster_data'].map((x) => The0PosterData.fromJson(x))),
-
-        // json[The0PosterData.fromJson(
-        //     jsonDecode(json["poster_data"]))],
-      );
+      id: (json["id"]),
+      poster: json["poster"],
+      msName: json["ms_name"],
+      type: json["type"],
+      status: json["status"],
+      mid: json["mid"],
+      created: DateTime.parse(json["created"]),
+      posterData: List<The0Poster>.from(
+          json['message'].map((x) => The0Poster.fromJson(x))));
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -156,14 +144,23 @@ class The0 {
         "mid": mid,
         "created":
             "${created.year.toString().padLeft(4, '0')}-${created.month.toString().padLeft(2, '0')}-${created.day.toString().padLeft(2, '0')}",
-        //"poster_data": List<dynamic>.from(posterData.map((x) => x.toJson())),
-
-        //posterData == null ? null : posterData.toJson(),
+        "poster_data": List<dynamic>.from(posterData.map((x) => x.toJson())),
       };
 }
 
-class The0PosterData {
-  The0PosterData({
+class The0Poster {
+  int id;
+  String movieTypeReal;
+  String movId;
+  String movName;
+  String data;
+  String slug;
+  String status;
+  String orderInc;
+  String movCaty;
+  String movieType;
+  DateTime createdDate;
+  The0Poster({
     required this.id,
     required this.movieTypeReal,
     required this.movId,
@@ -176,20 +173,7 @@ class The0PosterData {
     required this.movieType,
     required this.createdDate,
   });
-
-  int id;
-  String movieTypeReal;
-  String movId;
-  String movName;
-  String data;
-  String slug;
-  String status;
-  String orderInc;
-  String movCaty;
-  String movieType;
-  DateTime createdDate;
-
-  factory The0PosterData.fromJson(Map<String, dynamic> json) => The0PosterData(
+  factory The0Poster.fromJson(Map<String, dynamic> json) => The0Poster(
         id: int.parse(json["id"]),
         movieTypeReal: json["movie_type_real"],
         movId: json["mov_id"],
