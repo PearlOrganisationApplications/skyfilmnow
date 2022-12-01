@@ -88,6 +88,9 @@ class _HomePageInitialState extends State<HomePageInitial> {
   bool serial = false;
   bool movies = false;
 
+  var type;
+  var ms_name;
+
   void changeTheme(bool set, BuildContext context) {
     ///Call setDarkMode method inside our Settings ChangeNotifier class to
     ///Notify all the listeners of the change.
@@ -110,8 +113,7 @@ class _HomePageInitialState extends State<HomePageInitial> {
     });
   }
 
-  List<MainSlider> mainslider = [];
-  Future<MainSlider?> getMainSlider() async {
+  Future<PosterData?> getMainSlider() async {
     final response = await http.get(
         Uri.parse(
           WebLinks.mainslider,
@@ -122,10 +124,7 @@ class _HomePageInitialState extends State<HomePageInitial> {
         });
     // List<MainSlider>? mainslidermodeldata = [];
     if (response.statusCode == 200) {
-      var jsondata = jsonDecode(response.body);
-
-      //jsondata.foreach((key, value) => mainslider.add(value));
-      return MainSlider.fromJson(jsondata);
+      return PosterData.fromJson(jsonDecode(response.body));
     }
   }
 
@@ -303,24 +302,43 @@ class _HomePageInitialState extends State<HomePageInitial> {
                       SizedBox(
                         width: constraints.maxHeight,
                         height: constraints.maxHeight * 0.25,
-                        child: FutureBuilder<MainSlider?>(
+                        child: FutureBuilder<PosterData?>(
                             future: getMainSlider(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                // List<MainSlider> mainslider = snapshot.data!;
+                                //List<PosterData> posterdata = snapshot.data!;
                                 return ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   // physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: 5,
+                                  itemCount: snapshot.data!.message!.length,
                                   itemBuilder: (context, index) {
+                                    // ignore: unused_local_variable
+                                    var poster = snapshot.data!.message![index];
                                     return GestureDetector(
                                       onTap: () {
+                                        setState(() {
+                                          if (poster ==
+                                              snapshot.data!.message![index]) {
+                                            type = snapshot
+                                                .data!.message![index].type;
+                                            ms_name = snapshot
+                                                .data!.message![index].msName;
+
+                                            // ignore: avoid_print
+
+                                          }
+                                        });
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const MoviePlayAndAboutSection()));
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MoviePlayAndAboutSection(
+                                              type: type.toString(),
+                                              ms_name: ms_name.toString(),
+                                            ),
+                                          ),
+                                        );
 
                                         // ignore: avoid_print
                                       },
@@ -342,8 +360,7 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Image.network(
-                                                snapshot
-                                                    .data!.message.the0.poster,
+                                                poster.poster.toString(),
                                                 fit: BoxFit.cover,
                                               ),
                                               //     Image.asset(
@@ -365,7 +382,7 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                                       BorderRadius.all(
                                                           Radius.circular(8))),
                                               child: Text(
-                                                numbers[index].toString(),
+                                                poster.id.toString(),
                                                 style: const TextStyle(
                                                     color: Colors.yellow),
                                               ),
@@ -385,9 +402,8 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                                       BorderRadius.all(
                                                           Radius.circular(8))),
                                               child: Text(
-                                                snapshot
-                                                    .data!.message.the0.msName,
-                                                // MoviesName[index]['movie_name'],
+                                                poster.msName.toString(),
+                                                //MoviesName[index]['movie_name'],
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
