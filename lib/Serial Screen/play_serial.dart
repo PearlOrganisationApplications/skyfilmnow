@@ -148,701 +148,118 @@ class _PlaySerialState extends State<PlaySerial> {
                                   curve: Curves.fastOutSlowIn),
                               sizeCurve: Curves.bounceIn,
                               duration: const Duration(milliseconds: 400),
-                              firstChild: Container(
-                                height: 70,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {});
-                                          originalSeasonDropDown =
-                                              !originalSeasonDropDown;
-                                        },
-                                        icon: const Icon(Icons.arrow_drop_down),
-                                      ),
-                                      Row(
-                                        children: const [
-                                          Text(
-                                            "Season 1",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          ),
-                                          Icon(Icons.file_download_outlined)
-                                        ],
-                                      ),
-                                    ],
+                              firstChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    originalSeasonDropDown =
+                                        !originalSeasonDropDown;
+                                  });
+                                },
+                                child: Container(
+                                  height: 70,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
                                   ),
-                                ),
-                              ),
-                              secondChild: Container(
-                                alignment: Alignment.center,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          IconButton(
-                                            onPressed: () {
-                                              setState(() {});
-                                              originalSeasonDropDown =
-                                                  !originalSeasonDropDown;
-                                              openWebDropDown = false;
-                                            },
-                                            icon:
-                                                const Icon(Icons.arrow_drop_up),
-                                          ),
-                                          Row(
-                                            children: const [
-                                              Text(
-                                                "Season 1",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              Icon(Icons.file_download_outlined)
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    ListView.builder(
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: 3,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: AnimatedCrossFade(
-                                              firstChild: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    openWebDropDown =
-                                                        !openWebDropDown;
-                                                    selectedIndex = index;
-                                                    currentIndex = true;
-                                                    print("selected index is" +
-                                                        "$selectedIndex ");
-                                                  });
-                                                },
-                                                child: Center(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    height: 60,
-                                                    width: 170,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                      border: Border.all(
-                                                          color: Provider.of<
-                                                                          MyDynamicTheme>(
-                                                                      context)
-                                                                  .isDarkMode
-                                                              ? Colors.white
-                                                              : Colors.grey),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            myWebText[index]
-                                                                    ["pixels"]
-                                                                .toString(),
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
-                                                            ),
-                                                          ),
-                                                          const Text(
-                                                            "Exclusive",
-                                                            style: TextStyle(
-                                                                fontSize: 10,
-                                                                color: Colors
-                                                                    .grey),
-                                                          ),
-                                                          Text(
-                                                            myWebText[index]
-                                                                    ["size"]
-                                                                .toString(),
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 10,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              secondChild: Column(
-                                                children: [
-                                                  Center(
-                                                    child: themeColor
-                                                        ? Container(
-                                                            width: 200,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: selectedIndex ==
-                                                                      index
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .transparent,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15),
-                                                              border: Border.all(
-                                                                  color: Provider.of<MyDynamicTheme>(
-                                                                              context)
-                                                                          .isDarkMode
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .grey),
-                                                            ),
-                                                            child: Column(
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    setState(
-                                                                        () {
-                                                                      if (selectedIndex ==
-                                                                          index) {
-                                                                        openWebDropDown =
-                                                                            !openWebDropDown;
-                                                                      }
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        top: 16,
-                                                                        left: 8,
-                                                                        right:
-                                                                            8,
-                                                                        bottom:
-                                                                            10),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Text(
-                                                                          myWebText[index]["pixels"]
-                                                                              .toString(),
-                                                                          style: TextStyle(
-                                                                              fontSize: 10,
-                                                                              color: selectedIndex == index ? Colors.black : Colors.white),
-                                                                        ),
-                                                                        const Text(
-                                                                          "Exclusive",
-                                                                          style: TextStyle(
-                                                                              fontSize: 10,
-                                                                              color: Colors.grey),
-                                                                        ),
-                                                                        Text(
-                                                                          myWebText[index]["size"]
-                                                                              .toString(),
-                                                                          style: TextStyle(
-                                                                              fontSize: 10,
-                                                                              color: selectedIndex == index ? Colors.black : Colors.white),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                selectedIndex ==
-                                                                        index
-                                                                    ? Column(
-                                                                        children: [
-                                                                          index == 0
-                                                                              ? Padding(
-                                                                                  padding: const EdgeInsets.only(left: 10, right: 10, top: 4),
-                                                                                  child: SizedBox(
-                                                                                    width: width * 0.78,
-                                                                                    child: GridView.builder(
-                                                                                      physics: const NeverScrollableScrollPhysics(),
-                                                                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 2, crossAxisSpacing: 5),
-                                                                                      itemCount: 9,
-                                                                                      shrinkWrap: true,
-                                                                                      itemBuilder: (BuildContext context, int index) {
-                                                                                        return Column(
-                                                                                          children: [
-                                                                                            Padding(
-                                                                                              padding: const EdgeInsets.all(0.0),
-                                                                                              child: Container(
-                                                                                                height: height * 0.04,
-                                                                                                alignment: Alignment.center,
-                                                                                                decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                child: Text(
-                                                                                                  "Serial ${index + 1}",
-                                                                                                  style: const TextStyle(color: Colors.black),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                            const SizedBox(
-                                                                                              height: 2,
-                                                                                              width: 2,
-                                                                                            )
-                                                                                          ],
-                                                                                        );
-                                                                                      },
-                                                                                    ),
-                                                                                  ),
-                                                                                )
-                                                                              : index == 1
-                                                                                  ? Padding(
-                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                      child: SizedBox(
-                                                                                        width: width * 0.78,
-                                                                                        child: GridView.builder(
-                                                                                          physics: const NeverScrollableScrollPhysics(),
-                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                          itemCount: 9,
-                                                                                          shrinkWrap: true,
-                                                                                          itemBuilder: (BuildContext context, int index) {
-                                                                                            return Column(
-                                                                                              children: [
-                                                                                                Padding(
-                                                                                                  padding: const EdgeInsets.all(0.0),
-                                                                                                  child: Container(
-                                                                                                    height: height * 0.04,
-                                                                                                    alignment: Alignment.center,
-                                                                                                    decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                    child: Text(
-                                                                                                      "Serial ${index + 1}",
-                                                                                                      style: const TextStyle(color: Colors.black),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                  height: 2,
-                                                                                                  width: 2,
-                                                                                                )
-                                                                                              ],
-                                                                                            );
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    )
-                                                                                  : Padding(
-                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                      child: SizedBox(
-                                                                                        width: width * 0.78,
-                                                                                        child: GridView.builder(
-                                                                                          physics: const NeverScrollableScrollPhysics(),
-                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 2, crossAxisSpacing: 5),
-                                                                                          itemCount: 9,
-                                                                                          shrinkWrap: true,
-                                                                                          itemBuilder: (BuildContext context, int index) {
-                                                                                            return Column(
-                                                                                              children: [
-                                                                                                Padding(
-                                                                                                  padding: const EdgeInsets.all(0.0),
-                                                                                                  child: Container(
-                                                                                                    height: height * 0.04,
-                                                                                                    alignment: Alignment.center,
-                                                                                                    decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                    child: Text(
-                                                                                                      "Serial ${index + 1}",
-                                                                                                      style: const TextStyle(color: Colors.black),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                  height: 2,
-                                                                                                  width: 2,
-                                                                                                )
-                                                                                              ],
-                                                                                            );
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                          const SizedBox(
-                                                                            height:
-                                                                                10,
-                                                                          )
-                                                                        ],
-                                                                      )
-                                                                    : Container(),
-                                                              ],
-                                                            ),
-                                                          )
-                                                        : Container(
-                                                            width: width * 10,
-                                                            // width: 400,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: selectedIndex ==
-                                                                      index
-                                                                  ? const Color(
-                                                                      0xFF0F4A5C)
-                                                                  : Colors
-                                                                      .white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15),
-                                                              border: Border.all(
-                                                                  color: Provider.of<MyDynamicTheme>(
-                                                                              context)
-                                                                          .isDarkMode
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .grey),
-                                                            ),
-                                                            child: Column(
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    setState(
-                                                                        () {
-                                                                      if (selectedIndex ==
-                                                                          index) {
-                                                                        openWebDropDown =
-                                                                            !openWebDropDown;
-                                                                      }
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        top: 16,
-                                                                        left: 8,
-                                                                        right:
-                                                                            8,
-                                                                        bottom:
-                                                                            10),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Text(
-                                                                          myWebText[index]["pixels"]
-                                                                              .toString(),
-                                                                          style: TextStyle(
-                                                                              fontSize: 10,
-                                                                              color: selectedIndex == index ? Colors.white : Colors.black),
-                                                                        ),
-                                                                        const Text(
-                                                                          "Exclusive",
-                                                                          style: TextStyle(
-                                                                              fontSize: 10,
-                                                                              color: Colors.grey),
-                                                                        ),
-                                                                        Text(
-                                                                          myWebText[index]["size"]
-                                                                              .toString(),
-                                                                          style: TextStyle(
-                                                                              fontSize: 10,
-                                                                              color: selectedIndex == index ? Colors.white : Colors.black),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                selectedIndex ==
-                                                                        index
-                                                                    ? Column(
-                                                                        children: [
-                                                                          index == 0
-                                                                              ? Padding(
-                                                                                  padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                  child: SizedBox(
-                                                                                    width: width * 0.78,
-                                                                                    child: GridView.builder(
-                                                                                      physics: const NeverScrollableScrollPhysics(),
-                                                                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
-                                                                                          childAspectRatio:2.64,
-                                                                                          mainAxisSpacing: 0,
-                                                                                          crossAxisSpacing: 5),
-                                                                                      itemCount: 5,
-                                                                                      shrinkWrap: true,
-                                                                                      itemBuilder: (BuildContext context, int index) {
-                                                                                        return Column(
-                                                                                          children: [
-                                                                                            Padding(
-                                                                                              padding: const EdgeInsets.all(0.0),
-                                                                                              child: Container(
-                                                                                                height: height * 0.04,
-                                                                                                alignment: Alignment.center,
-                                                                                                decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                child: Text(
-                                                                                                  "Serial ${index + 1}",
-                                                                                                  style: const TextStyle(color: Colors.white),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                            const SizedBox(
-                                                                                              height: 20,
-                                                                                              width: 20,
-                                                                                            )
-                                                                                          ],
-                                                                                        );
-                                                                                      },
-                                                                                    ),
-                                                                                  ),
-                                                                                )
-                                                                              : index == 1
-                                                                                  ? Padding(
-                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                      child: SizedBox(
-                                                                                        width: width * 0.78,
-                                                                                        child: GridView.builder(
-                                                                                          physics: const NeverScrollableScrollPhysics(),
-                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.64, mainAxisSpacing: 2, crossAxisSpacing: 5),
-                                                                                          itemCount: 9,
-                                                                                          shrinkWrap: true,
-                                                                                          itemBuilder: (BuildContext context, int index) {
-                                                                                            return Column(
-                                                                                              children: [
-                                                                                                Padding(
-                                                                                                  padding: const EdgeInsets.all(0.0),
-                                                                                                  child: Container(
-                                                                                                    height: height * 0.04,
-                                                                                                    alignment: Alignment.center,
-                                                                                                    decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                    child: Text(
-                                                                                                      "Serial ${index + 1}",
-                                                                                                      style: const TextStyle(color: Colors.white),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                  height: 20,
-                                                                                                  width: 20,
-                                                                                                )
-                                                                                              ],
-                                                                                            );
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    )
-                                                                                  : Padding(
-                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                      child: SizedBox(
-                                                                                        width: width * 0.78,
-                                                                                        child: GridView.builder(
-                                                                                          physics: const NeverScrollableScrollPhysics(),
-                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                            crossAxisCount: 2,
-                                                                                            childAspectRatio:2.64,
-                                                                                            mainAxisSpacing: 2,
-                                                                                            crossAxisSpacing: 5,
-                                                                                          ),
-                                                                                          itemCount: 9,
-                                                                                          shrinkWrap: true,
-                                                                                          itemBuilder: (BuildContext context, int index) {
-                                                                                            return Column(
-                                                                                              children: [
-                                                                                                Padding(
-                                                                                                  padding: const EdgeInsets.all(0.0),
-                                                                                                  child: Container(
-                                                                                                    height: height * 0.04,
-                                                                                                    alignment: Alignment.center,
-                                                                                                    decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                    child: Text(
-                                                                                                      "Serial ${index + 1}",
-                                                                                                      style: const TextStyle(color: Colors.white),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                                const SizedBox(
-                                                                                                  height: 20,
-                                                                                                  width: 20,
-                                                                                                )
-                                                                                              ],
-                                                                                            );
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                          const SizedBox(
-                                                                            height:
-                                                                                10,
-                                                                          )
-                                                                        ],
-                                                                      )
-                                                                    : Container(),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                  ),
-                                                ],
-                                              ),
-                                              duration: const Duration(
-                                                  milliseconds: 400),
-                                              crossFadeState: openWebDropDown ==
-                                                      false
-                                                  ? CrossFadeState.showFirst
-                                                  : CrossFadeState.showSecond,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        const Icon(Icons.arrow_drop_down),
+                                        // IconButton(
+                                        //   onPressed: () {
+                                        //     setState(() {});
+                                        //     originalSeasonDropDown =
+                                        //         !originalSeasonDropDown;
+                                        //   },
+                                        //   icon: const Icon(Icons.arrow_drop_down),
+                                        // ),
+                                        Row(
+                                          children: const [
+                                            Text(
+                                              "Season 1",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500),
                                             ),
-                                          );
-                                        }),
-                                  ],
-                                ),
-                              ),
-                              crossFadeState: originalSeasonDropDown == false
-                                  ? CrossFadeState.showFirst
-                                  : CrossFadeState.showSecond,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AnimatedCrossFade(
-                              firstCurve: const Interval(0.0, 0.20,
-                                  curve: Curves.easeInCirc),
-                              secondCurve: const Interval(0.4, 1.0,
-                                  curve: Curves.fastOutSlowIn),
-                              sizeCurve: Curves.bounceIn,
-                              duration: const Duration(milliseconds: 400),
-                              firstChild: Container(
-                                height: 70,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {});
-                                          originalSeason2dropdown =
-                                              !originalSeason2dropdown;
-                                        },
-                                        icon: const Icon(Icons.arrow_drop_down),
-                                      ),
-                                      Row(
-                                        children: const [
-                                          Text(
-                                            "Season 2",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          ),
-                                          Icon(Icons.file_download_outlined)
-                                        ],
-                                      ),
-                                    ],
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Icon(Icons.file_download_outlined)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                              secondChild: Container(
-                                alignment: Alignment.center,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          IconButton(
-                                            onPressed: () {
-                                              setState(() {});
-                                              originalSeason2dropdown =
-                                                  !originalSeason2dropdown;
-                                              openWeb2DropDown = false;
-                                            },
-                                            icon:
-                                                const Icon(Icons.arrow_drop_up),
-                                          ),
-                                          Row(
-                                            children: const [
-                                              Text(
-                                                "Season 2",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              SizedBox(
-                                                width: 80,
-                                              ),
-                                              Icon(Icons.file_download_outlined)
-                                            ],
-                                          ),
-                                        ],
+                              secondChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  originalSeasonDropDown =
+                                      !originalSeasonDropDown;
+                                  openWebDropDown = false;
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            IconButton(
+                                              onPressed: () {
+                                                setState(() {});
+                                                originalSeasonDropDown =
+                                                    !originalSeasonDropDown;
+                                                openWebDropDown = false;
+                                              },
+                                              icon: const Icon(
+                                                  Icons.arrow_drop_up),
+                                            ),
+                                            Row(
+                                              children: const [
+                                                Text(
+                                                  "Season 1",
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Icon(Icons
+                                                    .file_download_outlined)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Center(
-                                      child: ListView.builder(
+                                      ListView.builder(
                                           shrinkWrap: true,
                                           physics:
                                               const NeverScrollableScrollPhysics(),
@@ -856,12 +273,12 @@ class _PlaySerialState extends State<PlaySerial> {
                                                 firstChild: GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      openWeb2DropDown =
-                                                          !openWeb2DropDown;
-                                                      selectedIndex2 = index;
-
+                                                      openWebDropDown =
+                                                          !openWebDropDown;
+                                                      selectedIndex = index;
+                                                      currentIndex = true;
                                                       print("selected index is" +
-                                                          "$selectedIndex2 ");
+                                                          "$selectedIndex ");
                                                     });
                                                   },
                                                   child: Center(
@@ -869,7 +286,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                       alignment:
                                                           Alignment.center,
                                                       height: 60,
-                                                      width: 156,
+                                                      width: 170,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
@@ -930,7 +347,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                               width: 200,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: selectedIndex2 ==
+                                                                color: selectedIndex ==
                                                                         index
                                                                     ? Colors
                                                                         .white
@@ -955,10 +372,10 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                     onTap: () {
                                                                       setState(
                                                                           () {
-                                                                        if (selectedIndex2 ==
+                                                                        if (selectedIndex ==
                                                                             index) {
-                                                                          openWeb2DropDown =
-                                                                              !openWeb2DropDown;
+                                                                          openWebDropDown =
+                                                                              !openWebDropDown;
                                                                         }
                                                                       });
                                                                     },
@@ -973,7 +390,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                           right:
                                                                               8,
                                                                           bottom:
-                                                                              8),
+                                                                              10),
                                                                       child:
                                                                           Row(
                                                                         mainAxisAlignment:
@@ -983,7 +400,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                           Text(
                                                                             myWebText[index]["pixels"].toString(),
                                                                             style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.black : Colors.white),
+                                                                                TextStyle(fontSize: 10, color: selectedIndex == index ? Colors.black : Colors.white),
                                                                           ),
                                                                           const Text(
                                                                             "Exclusive",
@@ -993,24 +410,24 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                           Text(
                                                                             myWebText[index]["size"].toString(),
                                                                             style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.black : Colors.white),
+                                                                                TextStyle(fontSize: 10, color: selectedIndex == index ? Colors.black : Colors.white),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  selectedIndex2 ==
+                                                                  selectedIndex ==
                                                                           index
                                                                       ? Column(
                                                                           children: [
                                                                             index == 0
                                                                                 ? Padding(
-                                                                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 4),
                                                                                     child: SizedBox(
                                                                                       width: width * 0.78,
                                                                                       child: GridView.builder(
                                                                                         physics: const NeverScrollableScrollPhysics(),
-                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.00, mainAxisSpacing: 2, crossAxisSpacing: 5),
+                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 2, crossAxisSpacing: 5),
                                                                                         itemCount: 9,
                                                                                         shrinkWrap: true,
                                                                                         itemBuilder: (BuildContext context, int index) {
@@ -1079,7 +496,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                           width: width * 0.78,
                                                                                           child: GridView.builder(
                                                                                             physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 2, crossAxisSpacing: 5),
                                                                                             itemCount: 9,
                                                                                             shrinkWrap: true,
                                                                                             itemBuilder: (BuildContext context, int index) {
@@ -1108,7 +525,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                         ),
                                                                                       ),
                                                                             const SizedBox(
-                                                                              height: 78,
+                                                                              height: 10,
                                                                             )
                                                                           ],
                                                                         )
@@ -1118,9 +535,10 @@ class _PlaySerialState extends State<PlaySerial> {
                                                             )
                                                           : Container(
                                                               width: width * 10,
+                                                              // width: 400,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: selectedIndex2 ==
+                                                                color: selectedIndex ==
                                                                         index
                                                                     ? const Color(
                                                                         0xFF0F4A5C)
@@ -1145,10 +563,10 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                     onTap: () {
                                                                       setState(
                                                                           () {
-                                                                        if (selectedIndex2 ==
+                                                                        if (selectedIndex ==
                                                                             index) {
-                                                                          openWeb2DropDown =
-                                                                              !openWeb2DropDown;
+                                                                          openWebDropDown =
+                                                                              !openWebDropDown;
                                                                         }
                                                                       });
                                                                     },
@@ -1157,7 +575,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                       padding: const EdgeInsets
                                                                               .only(
                                                                           top:
-                                                                              20,
+                                                                              16,
                                                                           left:
                                                                               8,
                                                                           right:
@@ -1173,7 +591,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                           Text(
                                                                             myWebText[index]["pixels"].toString(),
                                                                             style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.white : Colors.black),
+                                                                                TextStyle(fontSize: 10, color: selectedIndex == index ? Colors.white : Colors.black),
                                                                           ),
                                                                           const Text(
                                                                             "Exclusive",
@@ -1183,13 +601,13 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                           Text(
                                                                             myWebText[index]["size"].toString(),
                                                                             style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.white : Colors.black),
+                                                                                TextStyle(fontSize: 10, color: selectedIndex == index ? Colors.white : Colors.black),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  selectedIndex2 ==
+                                                                  selectedIndex ==
                                                                           index
                                                                       ? Column(
                                                                           children: [
@@ -1200,8 +618,8 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                       width: width * 0.78,
                                                                                       child: GridView.builder(
                                                                                         physics: const NeverScrollableScrollPhysics(),
-                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                        itemCount: 9,
+                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.64, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                        itemCount: 5,
                                                                                         shrinkWrap: true,
                                                                                         itemBuilder: (BuildContext context, int index) {
                                                                                           return Column(
@@ -1211,10 +629,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                                 child: Container(
                                                                                                   height: height * 0.04,
                                                                                                   alignment: Alignment.center,
-                                                                                                  decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue),
-                                                                                                    color: Colors.transparent,
-                                                                                                    borderRadius: BorderRadius.circular(10),
-                                                                                                  ),
+                                                                                                  decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
                                                                                                   child: Text(
                                                                                                     "Serial ${index + 1}",
                                                                                                     style: const TextStyle(color: Colors.white),
@@ -1222,8 +637,8 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                                 ),
                                                                                               ),
                                                                                               const SizedBox(
-                                                                                                height: 2,
-                                                                                                width: 2,
+                                                                                                height: 20,
+                                                                                                width: 20,
                                                                                               )
                                                                                             ],
                                                                                           );
@@ -1238,7 +653,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                           width: width * 0.78,
                                                                                           child: GridView.builder(
                                                                                             physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.64, mainAxisSpacing: 2, crossAxisSpacing: 5),
                                                                                             itemCount: 9,
                                                                                             shrinkWrap: true,
                                                                                             itemBuilder: (BuildContext context, int index) {
@@ -1257,8 +672,8 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                                     ),
                                                                                                   ),
                                                                                                   const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
+                                                                                                    height: 20,
+                                                                                                    width: 20,
                                                                                                   )
                                                                                                 ],
                                                                                               );
@@ -1272,7 +687,12 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                           width: width * 0.78,
                                                                                           child: GridView.builder(
                                                                                             physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                              crossAxisCount: 2,
+                                                                                              childAspectRatio: 2.64,
+                                                                                              mainAxisSpacing: 2,
+                                                                                              crossAxisSpacing: 5,
+                                                                                            ),
                                                                                             itemCount: 9,
                                                                                             shrinkWrap: true,
                                                                                             itemBuilder: (BuildContext context, int index) {
@@ -1291,8 +711,8 @@ class _PlaySerialState extends State<PlaySerial> {
                                                                                                     ),
                                                                                                   ),
                                                                                                   const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
+                                                                                                    height: 20,
+                                                                                                    width: 20,
                                                                                                   )
                                                                                                 ],
                                                                                               );
@@ -1315,7 +735,7 @@ class _PlaySerialState extends State<PlaySerial> {
                                                 duration: const Duration(
                                                     milliseconds: 400),
                                                 crossFadeState:
-                                                    openWeb2DropDown == false
+                                                    openWebDropDown == false
                                                         ? CrossFadeState
                                                             .showFirst
                                                         : CrossFadeState
@@ -1323,8 +743,598 @@ class _PlaySerialState extends State<PlaySerial> {
                                               ),
                                             );
                                           }),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              crossFadeState: originalSeasonDropDown == false
+                                  ? CrossFadeState.showFirst
+                                  : CrossFadeState.showSecond,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AnimatedCrossFade(
+                              firstCurve: const Interval(0.0, 0.20,
+                                  curve: Curves.easeInCirc),
+                              secondCurve: const Interval(0.4, 1.0,
+                                  curve: Curves.fastOutSlowIn),
+                              sizeCurve: Curves.bounceIn,
+                              duration: const Duration(milliseconds: 400),
+                              firstChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  originalSeason2dropdown =
+                                      !originalSeason2dropdown;
+                                },
+                                child: Container(
+                                  height: 70,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        const Icon(Icons.arrow_drop_down),
+                                        Row(
+                                          children: const [
+                                            Text(
+                                              "Season 2",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Icon(Icons.file_download_outlined)
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
+                                ),
+                              ),
+                              secondChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  originalSeason2dropdown =
+                                      !originalSeason2dropdown;
+                                  openWeb2DropDown = false;
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Icon(Icons.arrow_drop_up),
+                                            Row(
+                                              children: const [
+                                                Text(
+                                                  "Season 2",
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                SizedBox(
+                                                  width: 80,
+                                                ),
+                                                Icon(Icons
+                                                    .file_download_outlined)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Center(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: 3,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: AnimatedCrossFade(
+                                                  firstChild: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        openWeb2DropDown =
+                                                            !openWeb2DropDown;
+                                                        selectedIndex2 = index;
+
+                                                        print("selected index is" +
+                                                            "$selectedIndex2 ");
+                                                      });
+                                                    },
+                                                    child: Center(
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 60,
+                                                        width: 156,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          border: Border.all(
+                                                              color: Provider.of<
+                                                                              MyDynamicTheme>(
+                                                                          context)
+                                                                      .isDarkMode
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .grey),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                myWebText[index]
+                                                                        [
+                                                                        "pixels"]
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                              const Text(
+                                                                "Exclusive",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                              Text(
+                                                                myWebText[index]
+                                                                        ["size"]
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  secondChild: Column(
+                                                    children: [
+                                                      Center(
+                                                        child: themeColor
+                                                            ? Container(
+                                                                width: 200,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: selectedIndex2 ==
+                                                                          index
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .transparent,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                  border: Border.all(
+                                                                      color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .grey),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        setState(
+                                                                            () {
+                                                                          if (selectedIndex2 ==
+                                                                              index) {
+                                                                            openWeb2DropDown =
+                                                                                !openWeb2DropDown;
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets.only(
+                                                                            top:
+                                                                                16,
+                                                                            left:
+                                                                                8,
+                                                                            right:
+                                                                                8,
+                                                                            bottom:
+                                                                                8),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text(
+                                                                              myWebText[index]["pixels"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.black : Colors.white),
+                                                                            ),
+                                                                            const Text(
+                                                                              "Exclusive",
+                                                                              style: TextStyle(fontSize: 10, color: Colors.grey),
+                                                                            ),
+                                                                            Text(
+                                                                              myWebText[index]["size"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.black : Colors.white),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    selectedIndex2 ==
+                                                                            index
+                                                                        ? Column(
+                                                                            children: [
+                                                                              index == 0
+                                                                                  ? Padding(
+                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                      child: SizedBox(
+                                                                                        width: width * 0.78,
+                                                                                        child: GridView.builder(
+                                                                                          physics: const NeverScrollableScrollPhysics(),
+                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.00, mainAxisSpacing: 2, crossAxisSpacing: 5),
+                                                                                          itemCount: 9,
+                                                                                          shrinkWrap: true,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            return Column(
+                                                                                              children: [
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.all(0.0),
+                                                                                                  child: Container(
+                                                                                                    height: height * 0.04,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Serial ${index + 1}",
+                                                                                                      style: const TextStyle(color: Colors.black),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                const SizedBox(
+                                                                                                  height: 2,
+                                                                                                  width: 2,
+                                                                                                )
+                                                                                              ],
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                    )
+                                                                                  : index == 1
+                                                                                      ? Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.black),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        )
+                                                                                      : Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.black),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                              const SizedBox(
+                                                                                height: 78,
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                        : Container(),
+                                                                  ],
+                                                                ),
+                                                              )
+                                                            : Container(
+                                                                width:
+                                                                    width * 10,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: selectedIndex2 ==
+                                                                          index
+                                                                      ? const Color(
+                                                                          0xFF0F4A5C)
+                                                                      : Colors
+                                                                          .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                  border: Border.all(
+                                                                      color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .grey),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        setState(
+                                                                            () {
+                                                                          if (selectedIndex2 ==
+                                                                              index) {
+                                                                            openWeb2DropDown =
+                                                                                !openWeb2DropDown;
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets.only(
+                                                                            top:
+                                                                                20,
+                                                                            left:
+                                                                                8,
+                                                                            right:
+                                                                                8,
+                                                                            bottom:
+                                                                                10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text(
+                                                                              myWebText[index]["pixels"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.white : Colors.black),
+                                                                            ),
+                                                                            const Text(
+                                                                              "Exclusive",
+                                                                              style: TextStyle(fontSize: 10, color: Colors.grey),
+                                                                            ),
+                                                                            Text(
+                                                                              myWebText[index]["size"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex2 == index ? Colors.white : Colors.black),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    selectedIndex2 ==
+                                                                            index
+                                                                        ? Column(
+                                                                            children: [
+                                                                              index == 0
+                                                                                  ? Padding(
+                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                      child: SizedBox(
+                                                                                        width: width * 0.78,
+                                                                                        child: GridView.builder(
+                                                                                          physics: const NeverScrollableScrollPhysics(),
+                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                          itemCount: 9,
+                                                                                          shrinkWrap: true,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            return Column(
+                                                                                              children: [
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.all(0.0),
+                                                                                                  child: Container(
+                                                                                                    height: height * 0.04,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    decoration: BoxDecoration(
+                                                                                                      border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue),
+                                                                                                      color: Colors.transparent,
+                                                                                                      borderRadius: BorderRadius.circular(10),
+                                                                                                    ),
+                                                                                                    child: Text(
+                                                                                                      "Serial ${index + 1}",
+                                                                                                      style: const TextStyle(color: Colors.white),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                const SizedBox(
+                                                                                                  height: 2,
+                                                                                                  width: 2,
+                                                                                                )
+                                                                                              ],
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                    )
+                                                                                  : index == 1
+                                                                                      ? Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.white),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        )
+                                                                                      : Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.white),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                              const SizedBox(
+                                                                                height: 10,
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                        : Container(),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  duration: const Duration(
+                                                      milliseconds: 400),
+                                                  crossFadeState:
+                                                      openWeb2DropDown == false
+                                                          ? CrossFadeState
+                                                              .showFirst
+                                                          : CrossFadeState
+                                                              .showSecond,
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               crossFadeState: originalSeason2dropdown == false
@@ -1376,595 +1386,591 @@ class _PlaySerialState extends State<PlaySerial> {
                                   curve: Curves.fastOutSlowIn),
                               sizeCurve: Curves.bounceIn,
                               duration: const Duration(milliseconds: 400),
-                              firstChild: Container(
-                                height: 70,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {});
-                                          dubbedSeason1Dropdown =
-                                              !dubbedSeason1Dropdown;
-                                        },
-                                        icon: const Icon(Icons.arrow_drop_down),
-                                      ),
-                                      Row(
-                                        children: const [
-                                          Text(
-                                            "Season 1",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          ),
-                                          Icon(Icons.file_download_outlined)
-                                        ],
-                                      ),
-                                    ],
+                              firstChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  dubbedSeason1Dropdown =
+                                      !dubbedSeason1Dropdown;
+                                },
+                                child: Container(
+                                  height: 70,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        const Icon(Icons.arrow_drop_down),
+                                        Row(
+                                          children: const [
+                                            Text(
+                                              "Season 1",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Icon(Icons.file_download_outlined)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                              secondChild: Container(
-                                alignment: Alignment.center,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          IconButton(
-                                            onPressed: () {
-                                              setState(() {});
-                                              dubbedSeason1Dropdown =
-                                                  !dubbedSeason1Dropdown;
-                                              openWeb3DropDown = false;
-                                            },
-                                            icon:
-                                                const Icon(Icons.arrow_drop_up),
-                                          ),
-                                          Row(
-                                            children: const [
-                                              Text(
-                                                "Season 1",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              Icon(Icons.file_download_outlined)
-                                            ],
-                                          ),
-                                        ],
+                              secondChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  dubbedSeason1Dropdown =
+                                      !dubbedSeason1Dropdown;
+                                  openWeb3DropDown = false;
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Icon(Icons.arrow_drop_up),
+                                            Row(
+                                              children: const [
+                                                Text(
+                                                  "Season 1",
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Icon(Icons
+                                                    .file_download_outlined)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Center(
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: 3,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: AnimatedCrossFade(
-                                                firstChild: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      openWeb3DropDown =
-                                                          !openWeb3DropDown;
-                                                      selectedIndex3 = index;
-                                                      currentIndex = true;
-                                                      print("selected index is" +
-                                                          "$selectedIndex ");
-                                                    });
-                                                  },
-                                                  child: Center(
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: 60,
-                                                      width: 156,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                        border: Border.all(
-                                                            color: Provider.of<
-                                                                            MyDynamicTheme>(
-                                                                        context)
-                                                                    .isDarkMode
-                                                                ? Colors.white
-                                                                : Colors.grey),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: <Widget>[
-                                                            Text(
-                                                              myWebText[index]
-                                                                      ["pixels"]
-                                                                  .toString(),
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
-                                                              ),
-                                                            ),
-                                                            const Text(
-                                                              "Exclusive",
-                                                              style: TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: Colors
+                                      Center(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: 3,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: AnimatedCrossFade(
+                                                  firstChild: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        openWeb3DropDown =
+                                                            !openWeb3DropDown;
+                                                        selectedIndex3 = index;
+                                                        currentIndex = true;
+                                                        print("selected index is" +
+                                                            "$selectedIndex ");
+                                                      });
+                                                    },
+                                                    child: Center(
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 60,
+                                                        width: 156,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          border: Border.all(
+                                                              color: Provider.of<
+                                                                              MyDynamicTheme>(
+                                                                          context)
+                                                                      .isDarkMode
+                                                                  ? Colors.white
+                                                                  : Colors
                                                                       .grey),
-                                                            ),
-                                                            Text(
-                                                              myWebText[index]
-                                                                      ["size"]
-                                                                  .toString(),
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                myWebText[index]
+                                                                        [
+                                                                        "pixels"]
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 10,
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              const Text(
+                                                                "Exclusive",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                              Text(
+                                                                myWebText[index]
+                                                                        ["size"]
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                secondChild: Column(
-                                                  children: [
-                                                    Center(
-                                                      child: themeColor
-                                                          ? Container(
-                                                              width: 200,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: selectedIndex3 ==
-                                                                        index
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .transparent,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                border: Border.all(
-                                                                    color: Provider.of<MyDynamicTheme>(
-                                                                                context)
-                                                                            .isDarkMode
-                                                                        ? Colors
-                                                                            .white
-                                                                        : Colors
-                                                                            .grey),
-                                                              ),
-                                                              child: Column(
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      setState(
+                                                  secondChild: Column(
+                                                    children: [
+                                                      Center(
+                                                        child: themeColor
+                                                            ? Container(
+                                                                width: 200,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: selectedIndex3 ==
+                                                                          index
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .transparent,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                  border: Border.all(
+                                                                      color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .grey),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
                                                                           () {
-                                                                        if (selectedIndex3 ==
-                                                                            index) {
-                                                                          openWeb3DropDown =
-                                                                              !openWeb3DropDown;
-                                                                        }
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          top:
-                                                                              16,
-                                                                          left:
-                                                                              8,
-                                                                          right:
-                                                                              8,
-                                                                          bottom:
-                                                                              10),
+                                                                        setState(
+                                                                            () {
+                                                                          if (selectedIndex3 ==
+                                                                              index) {
+                                                                            openWeb3DropDown =
+                                                                                !openWeb3DropDown;
+                                                                          }
+                                                                        });
+                                                                      },
                                                                       child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Text(
-                                                                            myWebText[index]["pixels"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.black : Colors.white),
-                                                                          ),
-                                                                          const Text(
-                                                                            "Exclusive",
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: Colors.grey),
-                                                                          ),
-                                                                          Text(
-                                                                            myWebText[index]["size"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.black : Colors.white),
-                                                                          ),
-                                                                        ],
+                                                                          Padding(
+                                                                        padding: const EdgeInsets.only(
+                                                                            top:
+                                                                                16,
+                                                                            left:
+                                                                                8,
+                                                                            right:
+                                                                                8,
+                                                                            bottom:
+                                                                                10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text(
+                                                                              myWebText[index]["pixels"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.black : Colors.white),
+                                                                            ),
+                                                                            const Text(
+                                                                              "Exclusive",
+                                                                              style: TextStyle(fontSize: 10, color: Colors.grey),
+                                                                            ),
+                                                                            Text(
+                                                                              myWebText[index]["size"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.black : Colors.white),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  selectedIndex3 ==
-                                                                          index
-                                                                      ? Column(
-                                                                          children: [
-                                                                            index == 0
-                                                                                ? Padding(
-                                                                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                    child: SizedBox(
-                                                                                      width: width * 0.78,
-                                                                                      child: GridView.builder(
-                                                                                        physics: const NeverScrollableScrollPhysics(),
-                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                          crossAxisCount: 2,
-                                                                                          childAspectRatio: 2.66,
-                                                                                          mainAxisSpacing: 0,
-                                                                                          crossAxisSpacing: 5,
-                                                                                        ),
-                                                                                        itemCount: 9,
-                                                                                        shrinkWrap: true,
-                                                                                        itemBuilder: (BuildContext context, int index) {
-                                                                                          return Column(
-                                                                                            children: [
-                                                                                              Padding(
-                                                                                                padding: const EdgeInsets.all(0.0),
-                                                                                                child: Container(
-                                                                                                  height: height * 0.04,
-                                                                                                  alignment: Alignment.center,
-                                                                                                  decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                  child: Text(
-                                                                                                    "Serial ${index + 1}",
-                                                                                                    style: const TextStyle(color: Colors.black),
+                                                                    selectedIndex3 ==
+                                                                            index
+                                                                        ? Column(
+                                                                            children: [
+                                                                              index == 0
+                                                                                  ? Padding(
+                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                      child: SizedBox(
+                                                                                        width: width * 0.78,
+                                                                                        child: GridView.builder(
+                                                                                          physics: const NeverScrollableScrollPhysics(),
+                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                            crossAxisCount: 2,
+                                                                                            childAspectRatio: 2.66,
+                                                                                            mainAxisSpacing: 0,
+                                                                                            crossAxisSpacing: 5,
+                                                                                          ),
+                                                                                          itemCount: 9,
+                                                                                          shrinkWrap: true,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            return Column(
+                                                                                              children: [
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.all(0.0),
+                                                                                                  child: Container(
+                                                                                                    height: height * 0.04,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Serial ${index + 1}",
+                                                                                                      style: const TextStyle(color: Colors.black),
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ),
+                                                                                                const SizedBox(
+                                                                                                  height: 2,
+                                                                                                  width: 2,
+                                                                                                )
+                                                                                              ],
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                    )
+                                                                                  : index == 1
+                                                                                      ? Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                                crossAxisCount: 2,
+                                                                                                childAspectRatio: 2.66,
+                                                                                                mainAxisSpacing: 0,
+                                                                                                crossAxisSpacing: 5,
                                                                                               ),
-                                                                                              const SizedBox(
-                                                                                                height: 2,
-                                                                                                width: 2,
-                                                                                              )
-                                                                                            ],
-                                                                                          );
-                                                                                        },
-                                                                                      ),
-                                                                                    ),
-                                                                                  )
-                                                                                : index == 1
-                                                                                    ? Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                              crossAxisCount: 2,
-                                                                                              childAspectRatio: 2.66,
-                                                                                              mainAxisSpacing: 0,
-                                                                                              crossAxisSpacing: 5,
-                                                                                            ),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.black),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.black),
+                                                                                                        ),
                                                                                                       ),
                                                                                                     ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
-                                                                                          ),
-                                                                                        ),
-                                                                                      )
-                                                                                    : Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                              crossAxisCount: 2,
-                                                                                              childAspectRatio: 2.66,
-                                                                                              mainAxisSpacing: 0,
-                                                                                              crossAxisSpacing: 5,
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
                                                                                             ),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.black),
+                                                                                          ),
+                                                                                        )
+                                                                                      : Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                                crossAxisCount: 2,
+                                                                                                childAspectRatio: 2.66,
+                                                                                                mainAxisSpacing: 0,
+                                                                                                crossAxisSpacing: 5,
+                                                                                              ),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.black),
+                                                                                                        ),
                                                                                                       ),
                                                                                                     ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
                                                                                           ),
                                                                                         ),
-                                                                                      ),
-                                                                            const SizedBox(
-                                                                              height: 10,
-                                                                            )
-                                                                          ],
-                                                                        )
-                                                                      : Container(),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          : Container(
-                                                              width: width * 10,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: selectedIndex3 ==
-                                                                        index
-                                                                    ? const Color(
-                                                                        0xFF0F4A5C)
-                                                                    : Colors
-                                                                        .white,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                border: Border.all(
-                                                                    color: Provider.of<MyDynamicTheme>(
-                                                                                context)
-                                                                            .isDarkMode
-                                                                        ? Colors
-                                                                            .white
-                                                                        : Colors
-                                                                            .grey),
-                                                              ),
-                                                              child: Column(
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      setState(
+                                                                              const SizedBox(
+                                                                                height: 10,
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                        : Container(),
+                                                                  ],
+                                                                ),
+                                                              )
+                                                            : Container(
+                                                                width:
+                                                                    width * 10,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: selectedIndex3 ==
+                                                                          index
+                                                                      ? const Color(
+                                                                          0xFF0F4A5C)
+                                                                      : Colors
+                                                                          .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                  border: Border.all(
+                                                                      color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .grey),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
                                                                           () {
-                                                                        if (selectedIndex3 ==
-                                                                            index) {
-                                                                          openWeb3DropDown =
-                                                                              !openWeb3DropDown;
-                                                                        }
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          top:
-                                                                              16,
-                                                                          left:
-                                                                              8,
-                                                                          right:
-                                                                              8,
-                                                                          bottom:
-                                                                              10),
+                                                                        setState(
+                                                                            () {
+                                                                          if (selectedIndex3 ==
+                                                                              index) {
+                                                                            openWeb3DropDown =
+                                                                                !openWeb3DropDown;
+                                                                          }
+                                                                        });
+                                                                      },
                                                                       child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Text(
-                                                                            myWebText[index]["pixels"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.white : Colors.black),
-                                                                          ),
-                                                                          const Text(
-                                                                            "Exclusive",
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: Colors.grey),
-                                                                          ),
-                                                                          Text(
-                                                                            myWebText[index]["size"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.white : Colors.black),
-                                                                          ),
-                                                                        ],
+                                                                          Padding(
+                                                                        padding: const EdgeInsets.only(
+                                                                            top:
+                                                                                16,
+                                                                            left:
+                                                                                8,
+                                                                            right:
+                                                                                8,
+                                                                            bottom:
+                                                                                10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text(
+                                                                              myWebText[index]["pixels"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.white : Colors.black),
+                                                                            ),
+                                                                            const Text(
+                                                                              "Exclusive",
+                                                                              style: TextStyle(fontSize: 10, color: Colors.grey),
+                                                                            ),
+                                                                            Text(
+                                                                              myWebText[index]["size"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex3 == index ? Colors.white : Colors.black),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  selectedIndex3 ==
-                                                                          index
-                                                                      ? Column(
-                                                                          children: [
-                                                                            index == 0
-                                                                                ? Padding(
-                                                                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                    child: SizedBox(
-                                                                                      width: width * 0.78,
-                                                                                      child: GridView.builder(
-                                                                                        physics: const NeverScrollableScrollPhysics(),
-                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                        itemCount: 9,
-                                                                                        shrinkWrap: true,
-                                                                                        itemBuilder: (BuildContext context, int index) {
-                                                                                          return Column(
-                                                                                            children: [
-                                                                                              Padding(
-                                                                                                padding: const EdgeInsets.all(0.0),
-                                                                                                child: Container(
-                                                                                                  height: height * 0.04,
-                                                                                                  alignment: Alignment.center,
-                                                                                                  decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                  child: Text(
-                                                                                                    "Serial ${index + 1}",
-                                                                                                    style: const TextStyle(color: Colors.white),
+                                                                    selectedIndex3 ==
+                                                                            index
+                                                                        ? Column(
+                                                                            children: [
+                                                                              index == 0
+                                                                                  ? Padding(
+                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                      child: SizedBox(
+                                                                                        width: width * 0.78,
+                                                                                        child: GridView.builder(
+                                                                                          physics: const NeverScrollableScrollPhysics(),
+                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                          itemCount: 9,
+                                                                                          shrinkWrap: true,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            return Column(
+                                                                                              children: [
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.all(0.0),
+                                                                                                  child: Container(
+                                                                                                    height: height * 0.04,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Serial ${index + 1}",
+                                                                                                      style: const TextStyle(color: Colors.white),
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ),
-                                                                                              ),
-                                                                                              const SizedBox(
-                                                                                                height: 2,
-                                                                                                width: 2,
-                                                                                              )
-                                                                                            ],
-                                                                                          );
-                                                                                        },
-                                                                                      ),
-                                                                                    ),
-                                                                                  )
-                                                                                : index == 1
-                                                                                    ? Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.white),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
-                                                                                          ),
-                                                                                        ),
-                                                                                      )
-                                                                                    : Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.white),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
-                                                                                          ),
+                                                                                                const SizedBox(
+                                                                                                  height: 2,
+                                                                                                  width: 2,
+                                                                                                )
+                                                                                              ],
+                                                                                            );
+                                                                                          },
                                                                                         ),
                                                                                       ),
-                                                                            const SizedBox(
-                                                                              height: 10,
-                                                                            )
-                                                                          ],
-                                                                        )
-                                                                      : Container(),
-                                                                ],
+                                                                                    )
+                                                                                  : index == 1
+                                                                                      ? Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.white),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        )
+                                                                                      : Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.white),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                              const SizedBox(
+                                                                                height: 10,
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                        : Container(),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                    ),
-                                                  ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  duration: const Duration(
+                                                      milliseconds: 400),
+                                                  crossFadeState:
+                                                      openWeb3DropDown == false
+                                                          ? CrossFadeState
+                                                              .showFirst
+                                                          : CrossFadeState
+                                                              .showSecond,
                                                 ),
-                                                duration: const Duration(
-                                                    milliseconds: 400),
-                                                crossFadeState:
-                                                    openWeb3DropDown == false
-                                                        ? CrossFadeState
-                                                            .showFirst
-                                                        : CrossFadeState
-                                                            .showSecond,
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                                  ],
+                                              );
+                                            }),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               crossFadeState: dubbedSeason1Dropdown == false
@@ -1981,585 +1987,581 @@ class _PlaySerialState extends State<PlaySerial> {
                                   curve: Curves.fastOutSlowIn),
                               sizeCurve: Curves.bounceIn,
                               duration: const Duration(milliseconds: 400),
-                              firstChild: Container(
-                                height: 70,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {});
-                                          dubbedSeason2Dropdown =
-                                              !dubbedSeason2Dropdown;
-                                        },
-                                        icon: const Icon(Icons.arrow_drop_down),
-                                      ),
-                                      Row(
-                                        children: const [
-                                          Text(
-                                            "Season 2",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          ),
-                                          Icon(Icons.file_download_outlined)
-                                        ],
-                                      ),
-                                    ],
+                              firstChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  dubbedSeason2Dropdown =
+                                      !dubbedSeason2Dropdown;
+                                },
+                                child: Container(
+                                  height: 70,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        const Icon(Icons.arrow_drop_down),
+                                        Row(
+                                          children: const [
+                                            Text(
+                                              "Season 2",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Icon(Icons.file_download_outlined)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                              secondChild: Container(
-                                alignment: Alignment.center,
-                                width: width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color:
-                                          Provider.of<MyDynamicTheme>(context)
-                                                  .isDarkMode
-                                              ? Colors.white
-                                              : Colors.grey),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          IconButton(
-                                            onPressed: () {
-                                              setState(() {});
-                                              dubbedSeason2Dropdown =
-                                                  !dubbedSeason2Dropdown;
-                                              openWeb4DropDown = false;
-                                            },
-                                            icon:
-                                                const Icon(Icons.arrow_drop_up),
-                                          ),
-                                          Row(
-                                            children: const [
-                                              Text(
-                                                "Season 2",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              Icon(Icons.file_download_outlined)
-                                            ],
-                                          ),
-                                        ],
+                              secondChild: GestureDetector(
+                                onTap: () {
+                                  setState(() {});
+                                  dubbedSeason2Dropdown =
+                                      !dubbedSeason2Dropdown;
+                                  openWeb4DropDown = false;
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: width * 0.89,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color:
+                                            Provider.of<MyDynamicTheme>(context)
+                                                    .isDarkMode
+                                                ? Colors.white
+                                                : Colors.grey),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Icon(Icons.arrow_drop_up),
+                                            Row(
+                                              children: const [
+                                                Text(
+                                                  "Season 2",
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Icon(Icons
+                                                    .file_download_outlined)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Center(
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: 3,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: AnimatedCrossFade(
-                                                firstChild: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      openWeb4DropDown =
-                                                          !openWeb4DropDown;
-                                                      selectedIndex4 = index;
-                                                      currentIndex = true;
-                                                      print("selected index is" +
-                                                          "$selectedIndex4 ");
-                                                    });
-                                                  },
-                                                  child: Center(
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: 60,
-                                                      width: 156,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                        border: Border.all(
-                                                            color: Provider.of<
-                                                                            MyDynamicTheme>(
-                                                                        context)
-                                                                    .isDarkMode
-                                                                ? Colors.white
-                                                                : Colors.grey),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: <Widget>[
-                                                            Text(
-                                                              myWebText[index]
-                                                                      ["pixels"]
-                                                                  .toString(),
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
-                                                              ),
-                                                            ),
-                                                            const Text(
-                                                              "Exclusive",
-                                                              style: TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: Colors
+                                      Center(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: 3,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: AnimatedCrossFade(
+                                                  firstChild: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        openWeb4DropDown =
+                                                            !openWeb4DropDown;
+                                                        selectedIndex4 = index;
+                                                        currentIndex = true;
+                                                        print("selected index is" +
+                                                            "$selectedIndex4 ");
+                                                      });
+                                                    },
+                                                    child: Center(
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 60,
+                                                        width: 156,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          border: Border.all(
+                                                              color: Provider.of<
+                                                                              MyDynamicTheme>(
+                                                                          context)
+                                                                      .isDarkMode
+                                                                  ? Colors.white
+                                                                  : Colors
                                                                       .grey),
-                                                            ),
-                                                            Text(
-                                                              myWebText[index]
-                                                                      ["size"]
-                                                                  .toString(),
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                myWebText[index]
+                                                                        [
+                                                                        "pixels"]
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 10,
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              const Text(
+                                                                "Exclusive",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                              Text(
+                                                                myWebText[index]
+                                                                        ["size"]
+                                                                    .toString(),
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                secondChild: Column(
-                                                  children: [
-                                                    Center(
-                                                      child: themeColor
-                                                          ? Container(
-                                                              width: 200,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: selectedIndex4 ==
-                                                                        index
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .transparent,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                border: Border.all(
-                                                                    color: Provider.of<MyDynamicTheme>(
-                                                                                context)
-                                                                            .isDarkMode
-                                                                        ? Colors
-                                                                            .white
-                                                                        : Colors
-                                                                            .grey),
-                                                              ),
-                                                              child: Column(
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      setState(
+                                                  secondChild: Column(
+                                                    children: [
+                                                      Center(
+                                                        child: themeColor
+                                                            ? Container(
+                                                                width: 200,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: selectedIndex4 ==
+                                                                          index
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .transparent,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                  border: Border.all(
+                                                                      color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .grey),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
                                                                           () {
-                                                                        if (selectedIndex4 ==
-                                                                            index) {
-                                                                          openWeb4DropDown =
-                                                                              !openWeb4DropDown;
-                                                                        }
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          top:
-                                                                              16,
-                                                                          left:
-                                                                              8,
-                                                                          right:
-                                                                              8,
-                                                                          bottom:
-                                                                              10),
+                                                                        setState(
+                                                                            () {
+                                                                          if (selectedIndex4 ==
+                                                                              index) {
+                                                                            openWeb4DropDown =
+                                                                                !openWeb4DropDown;
+                                                                          }
+                                                                        });
+                                                                      },
                                                                       child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Text(
-                                                                            myWebText[index]["pixels"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.black : Colors.white),
-                                                                          ),
-                                                                          const Text(
-                                                                            "Exclusive",
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: Colors.grey),
-                                                                          ),
-                                                                          Text(
-                                                                            myWebText[index]["size"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.black : Colors.white),
-                                                                          ),
-                                                                        ],
+                                                                          Padding(
+                                                                        padding: const EdgeInsets.only(
+                                                                            top:
+                                                                                16,
+                                                                            left:
+                                                                                8,
+                                                                            right:
+                                                                                8,
+                                                                            bottom:
+                                                                                10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text(
+                                                                              myWebText[index]["pixels"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.black : Colors.white),
+                                                                            ),
+                                                                            const Text(
+                                                                              "Exclusive",
+                                                                              style: TextStyle(fontSize: 10, color: Colors.grey),
+                                                                            ),
+                                                                            Text(
+                                                                              myWebText[index]["size"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.black : Colors.white),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  selectedIndex4 ==
-                                                                          index
-                                                                      ? Column(
-                                                                          children: [
-                                                                            index == 0
-                                                                                ? Padding(
-                                                                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                    child: SizedBox(
-                                                                                      width: width * 0.78,
-                                                                                      child: GridView.builder(
-                                                                                        physics: const NeverScrollableScrollPhysics(),
-                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                        itemCount: 9,
-                                                                                        shrinkWrap: true,
-                                                                                        itemBuilder: (BuildContext context, int index) {
-                                                                                          return Column(
-                                                                                            children: [
-                                                                                              Padding(
-                                                                                                padding: const EdgeInsets.all(0.0),
-                                                                                                child: Container(
-                                                                                                  height: height * 0.04,
-                                                                                                  alignment: Alignment.center,
-                                                                                                  decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                  child: Text(
-                                                                                                    "Serial ${index + 1}",
-                                                                                                    style: const TextStyle(color: Colors.black),
+                                                                    selectedIndex4 ==
+                                                                            index
+                                                                        ? Column(
+                                                                            children: [
+                                                                              index == 0
+                                                                                  ? Padding(
+                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                      child: SizedBox(
+                                                                                        width: width * 0.78,
+                                                                                        child: GridView.builder(
+                                                                                          physics: const NeverScrollableScrollPhysics(),
+                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                          itemCount: 9,
+                                                                                          shrinkWrap: true,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            return Column(
+                                                                                              children: [
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.all(0.0),
+                                                                                                  child: Container(
+                                                                                                    height: height * 0.04,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Serial ${index + 1}",
+                                                                                                      style: const TextStyle(color: Colors.black),
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ),
-                                                                                              ),
-                                                                                              const SizedBox(
-                                                                                                height: 2,
-                                                                                                width: 2,
-                                                                                              )
-                                                                                            ],
-                                                                                          );
-                                                                                        },
-                                                                                      ),
-                                                                                    ),
-                                                                                  )
-                                                                                : index == 1
-                                                                                    ? Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.black),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
-                                                                                          ),
-                                                                                        ),
-                                                                                      )
-                                                                                    : Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.black),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
-                                                                                          ),
+                                                                                                const SizedBox(
+                                                                                                  height: 2,
+                                                                                                  width: 2,
+                                                                                                )
+                                                                                              ],
+                                                                                            );
+                                                                                          },
                                                                                         ),
                                                                                       ),
-                                                                            const SizedBox(
-                                                                              height: 10,
-                                                                            )
-                                                                          ],
-                                                                        )
-                                                                      : Container(),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          : Container(
-                                                              width: width * 10,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: selectedIndex4 ==
-                                                                        index
-                                                                    ? const Color(
-                                                                        0xFF0F4A5C)
-                                                                    : Colors
-                                                                        .white,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                border: Border.all(
-                                                                    color: Provider.of<MyDynamicTheme>(
-                                                                                context)
-                                                                            .isDarkMode
-                                                                        ? Colors
-                                                                            .white
-                                                                        : Colors
-                                                                            .grey),
-                                                              ),
-                                                              child: Column(
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      setState(
+                                                                                    )
+                                                                                  : index == 1
+                                                                                      ? Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.black),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        )
+                                                                                      : Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.66, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Colors.black), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.black),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                              const SizedBox(
+                                                                                height: 10,
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                        : Container(),
+                                                                  ],
+                                                                ),
+                                                              )
+                                                            : Container(
+                                                                width:
+                                                                    width * 10,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: selectedIndex4 ==
+                                                                          index
+                                                                      ? const Color(
+                                                                          0xFF0F4A5C)
+                                                                      : Colors
+                                                                          .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                  border: Border.all(
+                                                                      color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                                                                          ? Colors
+                                                                              .white
+                                                                          : Colors
+                                                                              .grey),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
                                                                           () {
-                                                                        if (selectedIndex4 ==
-                                                                            index) {
-                                                                          openWeb4DropDown =
-                                                                              !openWeb4DropDown;
-                                                                        }
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          top:
-                                                                              16,
-                                                                          left:
-                                                                              8,
-                                                                          right:
-                                                                              8,
-                                                                          bottom:
-                                                                              10),
+                                                                        setState(
+                                                                            () {
+                                                                          if (selectedIndex4 ==
+                                                                              index) {
+                                                                            openWeb4DropDown =
+                                                                                !openWeb4DropDown;
+                                                                          }
+                                                                        });
+                                                                      },
                                                                       child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Text(
-                                                                            myWebText[index]["pixels"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.white : Colors.black),
-                                                                          ),
-                                                                          const Text(
-                                                                            "Exclusive",
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: Colors.grey),
-                                                                          ),
-                                                                          Text(
-                                                                            myWebText[index]["size"].toString(),
-                                                                            style:
-                                                                                TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.white : Colors.black),
-                                                                          ),
-                                                                        ],
+                                                                          Padding(
+                                                                        padding: const EdgeInsets.only(
+                                                                            top:
+                                                                                16,
+                                                                            left:
+                                                                                8,
+                                                                            right:
+                                                                                8,
+                                                                            bottom:
+                                                                                10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text(
+                                                                              myWebText[index]["pixels"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.white : Colors.black),
+                                                                            ),
+                                                                            const Text(
+                                                                              "Exclusive",
+                                                                              style: TextStyle(fontSize: 10, color: Colors.grey),
+                                                                            ),
+                                                                            Text(
+                                                                              myWebText[index]["size"].toString(),
+                                                                              style: TextStyle(fontSize: 10, color: selectedIndex4 == index ? Colors.white : Colors.black),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  selectedIndex4 ==
-                                                                          index
-                                                                      ? Column(
-                                                                          children: [
-                                                                            index == 0
-                                                                                ? Padding(
-                                                                                    padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                    child: SizedBox(
-                                                                                      width: width * 0.78,
-                                                                                      child: GridView.builder(
-                                                                                        physics: const NeverScrollableScrollPhysics(),
-                                                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                          crossAxisCount: 2,
-                                                                                          childAspectRatio: 2.64,
-                                                                                          mainAxisSpacing: 1,
-                                                                                          crossAxisSpacing: 5,
-                                                                                        ),
-                                                                                        itemCount: 9,
-                                                                                        shrinkWrap: true,
-                                                                                        itemBuilder: (BuildContext context, int index) {
-                                                                                          return Column(
-                                                                                            children: [
-                                                                                              Padding(
-                                                                                                padding: const EdgeInsets.all(0.0),
-                                                                                                child: Container(
-                                                                                                  height: height * 0.04,
-                                                                                                  alignment: Alignment.center,
-                                                                                                  decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                  child: Text(
-                                                                                                    "Serial ${index + 1}",
-                                                                                                    style: const TextStyle(color: Colors.white),
+                                                                    selectedIndex4 ==
+                                                                            index
+                                                                        ? Column(
+                                                                            children: [
+                                                                              index == 0
+                                                                                  ? Padding(
+                                                                                      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                      child: SizedBox(
+                                                                                        width: width * 0.78,
+                                                                                        child: GridView.builder(
+                                                                                          physics: const NeverScrollableScrollPhysics(),
+                                                                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                                                            crossAxisCount: 2,
+                                                                                            childAspectRatio: 2.64,
+                                                                                            mainAxisSpacing: 1,
+                                                                                            crossAxisSpacing: 5,
+                                                                                          ),
+                                                                                          itemCount: 9,
+                                                                                          shrinkWrap: true,
+                                                                                          itemBuilder: (BuildContext context, int index) {
+                                                                                            return Column(
+                                                                                              children: [
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.all(0.0),
+                                                                                                  child: Container(
+                                                                                                    height: height * 0.04,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                    child: Text(
+                                                                                                      "Serial ${index + 1}",
+                                                                                                      style: const TextStyle(color: Colors.white),
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ),
-                                                                                              ),
-                                                                                              const SizedBox(
-                                                                                                height: 20,
-                                                                                                width: 20,
-                                                                                              )
-                                                                                            ],
-                                                                                          );
-                                                                                        },
-                                                                                      ),
-                                                                                    ),
-                                                                                  )
-                                                                                : index == 1
-                                                                                    ? Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.64, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.white),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
-                                                                                          ),
-                                                                                        ),
-                                                                                      )
-                                                                                    : Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                                                                                        child: SizedBox(
-                                                                                          width: width * 0.78,
-                                                                                          child: GridView.builder(
-                                                                                            physics: const NeverScrollableScrollPhysics(),
-                                                                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.64, mainAxisSpacing: 0, crossAxisSpacing: 5),
-                                                                                            itemCount: 9,
-                                                                                            shrinkWrap: true,
-                                                                                            itemBuilder: (BuildContext context, int index) {
-                                                                                              return Column(
-                                                                                                children: [
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.all(0.0),
-                                                                                                    child: Container(
-                                                                                                      height: height * 0.04,
-                                                                                                      alignment: Alignment.center,
-                                                                                                      decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-                                                                                                      child: Text(
-                                                                                                        "Serial ${index + 1}",
-                                                                                                        style: const TextStyle(color: Colors.white),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 2,
-                                                                                                    width: 2,
-                                                                                                  )
-                                                                                                ],
-                                                                                              );
-                                                                                            },
-                                                                                          ),
+                                                                                                const SizedBox(
+                                                                                                  height: 20,
+                                                                                                  width: 20,
+                                                                                                )
+                                                                                              ],
+                                                                                            );
+                                                                                          },
                                                                                         ),
                                                                                       ),
-                                                                            const SizedBox(
-                                                                              height: 10,
-                                                                            )
-                                                                          ],
-                                                                        )
-                                                                      : Container(),
-                                                                ],
+                                                                                    )
+                                                                                  : index == 1
+                                                                                      ? Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.64, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.white),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        )
+                                                                                      : Padding(
+                                                                                          padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+                                                                                          child: SizedBox(
+                                                                                            width: width * 0.78,
+                                                                                            child: GridView.builder(
+                                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.64, mainAxisSpacing: 0, crossAxisSpacing: 5),
+                                                                                              itemCount: 9,
+                                                                                              shrinkWrap: true,
+                                                                                              itemBuilder: (BuildContext context, int index) {
+                                                                                                return Column(
+                                                                                                  children: [
+                                                                                                    Padding(
+                                                                                                      padding: const EdgeInsets.all(0.0),
+                                                                                                      child: Container(
+                                                                                                        height: height * 0.04,
+                                                                                                        alignment: Alignment.center,
+                                                                                                        decoration: BoxDecoration(border: Border.all(color: Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.white : Colors.blue), color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
+                                                                                                        child: Text(
+                                                                                                          "Serial ${index + 1}",
+                                                                                                          style: const TextStyle(color: Colors.white),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    const SizedBox(
+                                                                                                      height: 2,
+                                                                                                      width: 2,
+                                                                                                    )
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                              const SizedBox(
+                                                                                height: 10,
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                        : Container(),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                    ),
-                                                  ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  duration: const Duration(
+                                                      milliseconds: 400),
+                                                  crossFadeState:
+                                                      openWeb4DropDown == false
+                                                          ? CrossFadeState
+                                                              .showFirst
+                                                          : CrossFadeState
+                                                              .showSecond,
                                                 ),
-                                                duration: const Duration(
-                                                    milliseconds: 400),
-                                                crossFadeState:
-                                                    openWeb4DropDown == false
-                                                        ? CrossFadeState
-                                                            .showFirst
-                                                        : CrossFadeState
-                                                            .showSecond,
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                                  ],
+                                              );
+                                            }),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               crossFadeState: dubbedSeason2Dropdown == false

@@ -1,29 +1,19 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:provider/provider.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
-
 import 'package:skyfilmnow/Serial%20Screen/serial_about_play_screen.dart';
 import 'package:skyfilmnow/models/mainslider/mainslider.dart';
-import 'package:skyfilmnow/models/mainslider/mainslidermodel.dart';
-
 import 'package:skyfilmnow/movie_screens/movie_play_and_about_section.dart';
-
-import 'package:skyfilmnow/Serial%20Screen/serial_page.dart';
 import 'package:skyfilmnow/presentation/category/component/movie_play_category.dart';
-
 import '../../../Serial Screen/serials_dubbed.dart';
 import '../../../Serial Screen/serials_eastern.dart';
 import '../../../Serial Screen/serials_turkish.dart';
 import '../../../Serial Screen/western_serials.dart';
 import '../../../data/utils.dart';
-
 import '../../../resources/color_manager.dart';
 import '../../../theme_dark_light/change_theme.dart';
-
 import '../../../urlLinks/links.dart';
 import '../../more/profile.dart';
 import 'dubbed_movies.dart';
@@ -324,9 +314,6 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                                 .data!.message![index].type;
                                             ms_name = snapshot
                                                 .data!.message![index].msName;
-
-                                            // ignore: avoid_print
-
                                           }
                                         });
                                         Navigator.push(
@@ -336,6 +323,7 @@ class _HomePageInitialState extends State<HomePageInitial> {
                                                 MoviePlayAndAboutSection(
                                               type: type.toString(),
                                               ms_name: ms_name.toString(),
+                                              poster: poster.poster.toString(),
                                             ),
                                           ),
                                         );
