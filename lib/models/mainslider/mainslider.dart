@@ -32,6 +32,8 @@ class Message {
   String? status;
   String? mid;
   String? created;
+  String? topCast;
+  String? castImage;
 
   Message(
       {this.id,
@@ -40,7 +42,9 @@ class Message {
       this.type,
       this.status,
       this.mid,
-      this.created});
+      this.created,
+      this.topCast,
+      this.castImage});
 
   Message.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,6 +54,8 @@ class Message {
     status = json['status'];
     mid = json['mid'];
     created = json['created'];
+    topCast = json['top_cast'];
+    castImage = json['cast_image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +67,8 @@ class Message {
     data['status'] = status;
     data['mid'] = mid;
     data['created'] = created;
+    data['top_cast'] = topCast;
+    data['cast_image'] = castImage;
     return data;
   }
 }

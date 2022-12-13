@@ -17,6 +17,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>
     );
   }
 
+
   final AuthenticationRepository _authenticationRepository;
   late StreamSubscription<AuthenticationStatus>
   _authenticationStatusSubscription;

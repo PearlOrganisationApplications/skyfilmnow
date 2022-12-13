@@ -53,6 +53,9 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   auto_size_text: ^3.0.0
   sizer: ^2.0.15
+  firebase_auth: ^4.1.5
+  google_sign_in: ^5.4.2
+  firebase_core: ^2.3.0
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "987524058563",
+    "project_id": "skyfilmnow-bef06",
+    "storage_bucket": "skyfilmnow-bef06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987524058563:android:ff496c7e48ef2e9e00c176",
+        "android_client_info": {
+          "package_name": "com.pearlorganisation.skyfilmnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987524058563-orfu84hl2s2mtg1hkduhck5fb0sh1su7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxdoGQhA2uwEZs2Nt6C1tPsrBX-xOdw64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987524058563-orfu84hl2s2mtg1hkduhck5fb0sh1su7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

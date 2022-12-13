@@ -35,6 +35,7 @@ class BottomScreenPageeTheme extends StatelessWidget {
     );
   }
 }
+
 class BottomScreenPagee extends StatefulWidget {
   final VoidCallback? onBottomNavigationTap;
   const BottomScreenPagee({Key? key, this.onBottomNavigationTap})
@@ -51,16 +52,12 @@ class _BottomScreenPageeState extends State<BottomScreenPagee> {
   @override
   Widget build(BuildContext context) {
     bool themeColor = Provider.of<MyDynamicTheme>(context).isDarkMode;
-    return
-      MaterialApp(
+    return MaterialApp(
       theme: themeColor ? setDarkTheme : setLightTheme,
       debugShowCheckedModeBanner: false,
-      home:
-      Scaffold(
+      home: Scaffold(
         resizeToAvoidBottomInset: false,
-        bottomNavigationBar:
-
-        FutureBuilder<SharedPreferences>(
+        bottomNavigationBar: FutureBuilder<SharedPreferences>(
           future: SharedPreferences.getInstance(),
           builder: (BuildContext context,
               AsyncSnapshot<SharedPreferences> snapshot) {
@@ -73,8 +70,7 @@ class _BottomScreenPageeState extends State<BottomScreenPagee> {
                   //   bool? changeBottomColor = prefs.getBool("bottomColor");
                   //   val = changeBottomColor!;
                   // }
-                  return
-                    BottomNavigationBar(
+                  return BottomNavigationBar(
                     selectedLabelStyle: TextStyle(
                         fontSize: ResponsiveFlutter.of(context).fontSize(1.3),
                         fontWeight: FontWeight.bold),
@@ -89,17 +85,15 @@ class _BottomScreenPageeState extends State<BottomScreenPagee> {
                     currentIndex: state.index,
                     items: [
                       BottomNavigationBarItem(
-
                         backgroundColor:
                             Provider.of<MyDynamicTheme>(context).isDarkMode
                                 ? Colors.black38
                                 : Colors.white,
                         activeIcon: Icon(
                           Icons.more_horiz_outlined,
-                          color:
-                              Provider.of<MyDynamicTheme>(context).isDarkMode
-                                  ? Colors.white
-                                  : Colors.blue,
+                          color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                              ? Colors.white
+                              : Colors.blue,
                         ),
                         icon: const Icon(Icons.more_horiz_outlined,
                             color: Colors.grey),
@@ -112,10 +106,9 @@ class _BottomScreenPageeState extends State<BottomScreenPagee> {
                                 : Colors.white,
                         activeIcon: Icon(
                           Icons.home,
-                          color:
-                              Provider.of<MyDynamicTheme>(context).isDarkMode
-                                  ? Colors.white
-                                  : Colors.blue,
+                          color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                              ? Colors.white
+                              : Colors.blue,
                         ),
                         icon: const Icon(Icons.home, color: Colors.grey),
                         label: 'Home',
@@ -127,13 +120,12 @@ class _BottomScreenPageeState extends State<BottomScreenPagee> {
                                 : Colors.white,
                         activeIcon: Icon(
                           Icons.category_outlined,
-                          color:
-                              Provider.of<MyDynamicTheme>(context).isDarkMode
-                                  ? Colors.white
-                                  : Colors.blue,
+                          color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                              ? Colors.white
+                              : Colors.blue,
                         ),
-                        icon:
-                            const Icon(Icons.category_outlined, color: Colors.grey),
+                        icon: const Icon(Icons.category_outlined,
+                            color: Colors.grey),
                         label: 'Category',
                       ),
                       BottomNavigationBarItem(
@@ -143,12 +135,12 @@ class _BottomScreenPageeState extends State<BottomScreenPagee> {
                                 : Colors.white,
                         activeIcon: Icon(
                           Icons.search_outlined,
-                          color:
-                              Provider.of<MyDynamicTheme>(context).isDarkMode
-                                  ? Colors.white
-                                  : Colors.blue,
+                          color: Provider.of<MyDynamicTheme>(context).isDarkMode
+                              ? Colors.white
+                              : Colors.blue,
                         ),
-                        icon: const Icon(Icons.search_outlined, color: Colors.grey),
+                        icon: const Icon(Icons.search_outlined,
+                            color: Colors.grey),
                         label: 'Genre',
                       ),
                     ],

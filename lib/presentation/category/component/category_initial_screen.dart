@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_flutter/responsive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skyfilmnow/Serial%20Screen/serial_about_play_screen.dart';
-import 'package:skyfilmnow/movie_screens/movie_play_and_about_section.dart';
-import 'package:skyfilmnow/presentation/category/component/serials_in_category.dart';
 import 'package:skyfilmnow/presentation/category/component/series_play_category.dart';
 import 'package:skyfilmnow/presentation/category/component/top_250_imbd.dart';
-import 'package:skyfilmnow/Serial%20Screen/serial_page.dart';
 
 import '../../../Serial Screen/Country.dart';
 import '../../../Serial Screen/gener.dart';
@@ -19,17 +14,10 @@ import '../../../data/utils.dart';
 import '../../../movie_screens/country.dart';
 import '../../../movie_screens/gener.dart';
 import '../../../movie_screens/languagee.dart';
-import '../../../movie_screens/serials_file.dart';
-import '../../../resources/color_manager.dart';
 import '../../../theme_dark_light/change_theme.dart';
 import '../../../theme_dark_light/themes.dart';
-import '../../more/profile.dart';
-import 'Movie_series_.dart';
-import 'movie_in_category.dart';
 import 'movie_play_category.dart';
 import 'movie_series_bottom.dart';
-
-
 
 class CategoryTheme extends StatelessWidget {
   const CategoryTheme({Key? key}) : super(key: key);
@@ -58,24 +46,28 @@ class CategoryInitialScreen extends StatefulWidget {
 
 class _CategoryInitialScreenState extends State<CategoryInitialScreen> {
   List<Map<String, String>> MovieName = [
-    {"name": "Rommel","country": "content","genre": "area"},
-    {"name": "Squad","country": "dataSource","genre": "rectangle"},
-    {"name": "Dhamal","country": "models","genre": "square"},
-    {"name": "Avangers","country": "overview","genre": "circle"},
-    {"name": "Endgame","country": "loadings","genre": "octagon"},
-    {"name": "Karan Arjun","country": "nested","genre": "pentagon"},
-    {"name": "Weathering with you","country": "courage","genre": "hexagon"},
-    {"name": "I Want to Eat Your Pencrease","country": "honesty","genre": "triangle"},
-    {"name": "Your Name","country": "astonished","genre": "sphere"},
-    {"name": "SPIRITED AWAY","country": "gather","genre": "rhombus"}
+    {"name": "Rommel", "country": "content", "genre": "area"},
+    {"name": "Squad", "country": "dataSource", "genre": "rectangle"},
+    {"name": "Dhamal", "country": "models", "genre": "square"},
+    {"name": "Avangers", "country": "overview", "genre": "circle"},
+    {"name": "Endgame", "country": "loadings", "genre": "octagon"},
+    {"name": "Karan Arjun", "country": "nested", "genre": "pentagon"},
+    {"name": "Weathering with you", "country": "courage", "genre": "hexagon"},
+    {
+      "name": "I Want to Eat Your Pencrease",
+      "country": "honesty",
+      "genre": "triangle"
+    },
+    {"name": "Your Name", "country": "astonished", "genre": "sphere"},
+    {"name": "SPIRITED AWAY", "country": "gather", "genre": "rhombus"}
   ];
 
   bool serial = false;
   bool movies = false;
-bool country = false;
-bool genre = false;
-bool country1 = false;
-bool genre1 = false;
+  bool country = false;
+  bool genre = false;
+  bool country1 = false;
+  bool genre1 = false;
   int _selectedIndex = 0;
   int _selectedIndex1 = 0;
   int _selectedIndex2 = 0;
@@ -106,19 +98,20 @@ bool genre1 = false;
   @override
   Widget build(BuildContext context) {
 //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle());
-SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       theme: Provider.of<MyDynamicTheme>(context).isDarkMode
           ? setDarkTheme
           : setLightTheme,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor:  Provider.of<MyDynamicTheme>(context).isDarkMode ? Colors.red : Colors.blue,
+          backgroundColor: Provider.of<MyDynamicTheme>(context).isDarkMode
+              ? Colors.red
+              : Colors.blue,
           body: LayoutBuilder(
             builder: (context, constraints) => Scaffold(
-                appBar: AppBar (
+                appBar: AppBar(
                   systemOverlayStyle: SystemUiOverlayStyle(
                     statusBarColor:
                         Provider.of<MyDynamicTheme>(context).isDarkMode
@@ -129,7 +122,6 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                     // systemNavigationBarDividerColor:  Provider.of<MyDynamicTheme>(context).isDarkMode ?Colors.black : Colors.white,
                     statusBarBrightness: Brightness.light,
                   ),
-
                   actions: const [],
                   title: Text(
                     'Movies and serials category',
@@ -189,18 +181,18 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                       return GestureDetector(
                                         onTap: () {
                                           _onSelected(index);
-                                          if(_selectedIndex == 0){
+                                          if (_selectedIndex == 0) {
                                             country = false;
                                             genre = false;
                                           }
-                                          if(_selectedIndex == 1){
-                                            setState((){
+                                          if (_selectedIndex == 1) {
+                                            setState(() {
                                               country = true;
                                               genre = false;
                                             });
                                           }
-                                          if (_selectedIndex == 2){
-                                            setState((){
+                                          if (_selectedIndex == 2) {
+                                            setState(() {
                                               genre = true;
                                               country = false;
                                             });
@@ -210,7 +202,8 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                           width: constraints.maxWidth * 0.18,
                                           margin: EdgeInsets.only(
                                               left: constraints.maxWidth * 0.05,
-                                              right: constraints.maxWidth * 0.05),
+                                              right:
+                                                  constraints.maxWidth * 0.05),
                                           decoration: BoxDecoration(
                                               color: _selectedIndex != null &&
                                                       _selectedIndex == index
@@ -227,14 +220,16 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                                         : Colors.grey.shade300,
                                               )),
                                           child: Center(
-                                              child: Text(
-                                            language[index]['name'],
-                                            style: TextStyle(
-                                                color: _selectedIndex != null &&
-                                                        _selectedIndex == index
-                                                    ? Colors.black
-                                                    : Colors.white),
-                                          ),
+                                            child: Text(
+                                              language[index]['name'],
+                                              style: TextStyle(
+                                                  color:
+                                                      _selectedIndex != null &&
+                                                              _selectedIndex ==
+                                                                  index
+                                                          ? Colors.black
+                                                          : Colors.white),
+                                            ),
                                           ),
                                         ),
                                       );
@@ -253,18 +248,18 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                       return GestureDetector(
                                         onTap: () {
                                           _onSelected(index);
-                                          if(_selectedIndex == 0){
+                                          if (_selectedIndex == 0) {
                                             country = false;
                                             genre = false;
                                           }
-                                          if(_selectedIndex == 1){
-                                            setState((){
+                                          if (_selectedIndex == 1) {
+                                            setState(() {
                                               country = true;
                                               genre = false;
                                             });
                                           }
-                                          if (_selectedIndex == 2){
-                                            setState((){
+                                          if (_selectedIndex == 2) {
+                                            setState(() {
                                               genre = true;
                                               country = false;
                                             });
@@ -274,7 +269,8 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                           width: constraints.maxWidth * 0.18,
                                           margin: EdgeInsets.only(
                                               left: constraints.maxWidth * 0.05,
-                                              right: constraints.maxWidth * 0.05),
+                                              right:
+                                                  constraints.maxWidth * 0.05),
                                           decoration: BoxDecoration(
                                               color: _selectedIndex != null &&
                                                       _selectedIndex == index
@@ -283,19 +279,23 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
-                                                  color: _selectedIndex != null &&
-                                                          _selectedIndex == index
+                                                  color: _selectedIndex !=
+                                                              null &&
+                                                          _selectedIndex ==
+                                                              index
                                                       ? Colors.blue
                                                       : Colors.grey.shade300)),
                                           child: Center(
-                                              child: Text(
-                                            language[index]['name'],
-                                            style: TextStyle(
-                                                color: _selectedIndex != null &&
-                                                        _selectedIndex == index
-                                                    ? Colors.white
-                                                    : Colors.black),
-                                          ),
+                                            child: Text(
+                                              language[index]['name'],
+                                              style: TextStyle(
+                                                  color:
+                                                      _selectedIndex != null &&
+                                                              _selectedIndex ==
+                                                                  index
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                            ),
                                           ),
                                         ),
                                       );
@@ -307,163 +307,196 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                           SizedBox(
                             height: constraints.maxHeight * 0.05,
                           ),
-                          country == true ?
-                          Container(
-                            width: constraints.maxHeight,
-                            height: constraints.maxHeight * 0.35,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: 10,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.to(
-                                      const MovieCountryTheme(),
-                                    );
-                                    print("Rommel");
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        width: constraints.maxWidth * 0.50,
-                                        margin: EdgeInsets.only(
-                                            left: constraints.maxWidth * 0.01,
-                                            right: constraints.maxWidth * 0.02),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/shawshank.png",
-                                            fit: BoxFit.cover,
-                                          ),
+                          country == true
+                              ? Container(
+                                  width: constraints.maxHeight,
+                                  height: constraints.maxHeight * 0.35,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    // physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: 10,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Get.to(
+                                            const MovieCountryTheme(),
+                                          );
+                                          print("Rommel");
+                                        },
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Container(
+                                              width:
+                                                  constraints.maxWidth * 0.50,
+                                              margin: EdgeInsets.only(
+                                                  left: constraints.maxWidth *
+                                                      0.01,
+                                                  right: constraints.maxWidth *
+                                                      0.02),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.asset(
+                                                  "assets/shawshank.png",
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                MovieName[index]["country"]
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white,
+                                                    fontSize: 15),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                        Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          MovieName[index]["country"].toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                              fontSize: 15),
-                                        ),
-                                      ),
-                                    ],
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ) : genre  ?
-                          Container(
-                            width: constraints.maxHeight,
-                            height: constraints.maxHeight * 0.35,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: 10,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.to(
-                                      const MovieGenerTheme(),
-                                    );
-                                    print("Rommel");
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        width: constraints.maxWidth * 0.50,
-                                        margin: EdgeInsets.only(
-                                            left: constraints.maxWidth * 0.01,
-                                            right: constraints.maxWidth * 0.02),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(10)),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/harem.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                                )
+                              : genre
+                                  ? Container(
+                                      width: constraints.maxHeight,
+                                      height: constraints.maxHeight * 0.35,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        // physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: 10,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Get.to(
+                                                const MovieGenerTheme(),
+                                              );
+                                              print("Rommel");
+                                            },
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Container(
+                                                  width: constraints.maxWidth *
+                                                      0.50,
+                                                  margin: EdgeInsets.only(
+                                                      left:
+                                                          constraints.maxWidth *
+                                                              0.01,
+                                                      right:
+                                                          constraints.maxWidth *
+                                                              0.02),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: Image.asset(
+                                                      "assets/harem.png",
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    MovieName[index]["genre"]
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
                                       ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          MovieName[index]["genre"].toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                              fontSize: 15),
-                                        ),
+                                    )
+                                  : Container(
+                                      width: constraints.maxWidth,
+                                      height: constraints.maxHeight * 0.35,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        // physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: 10,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const LanguageTheme()));
+                                              print("Rommel");
+                                            },
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Container(
+                                                  width: constraints.maxWidth *
+                                                      0.50,
+                                                  margin: EdgeInsets.only(
+                                                      left:
+                                                          constraints.maxWidth *
+                                                              0.01,
+                                                      right:
+                                                          constraints.maxWidth *
+                                                              0.02),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: Image.asset(
+                                                      "assets/rommel.png",
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.bottomLeft,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 20,
+                                                            bottom: 10.0),
+                                                    child: Text(
+                                                      MovieName[index]["name"]
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.white,
+                                                          fontSize: 15),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ) : Container(
-                            width: constraints.maxWidth,
-                            height: constraints.maxHeight * 0.35,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: 10,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-
-
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=> const LanguageTheme()));
-                                    print("Rommel");
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        width: constraints.maxWidth * 0.50,
-                                        margin: EdgeInsets.only(
-                                            left: constraints.maxWidth * 0.01,
-                                            right: constraints.maxWidth * 0.02),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(10)),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            "assets/rommel.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomLeft,
-
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(right:20,bottom: 10.0),
-                                          child: Text(
-                                            MovieName[index]["name"].toString(),
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                                    ),
 
                           ///****************************** Series Section From Here *********************************///
                           SizedBox(
@@ -497,18 +530,18 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                       return GestureDetector(
                                         onTap: () {
                                           _onSelected1(index);
-                                          if(_selectedIndex1 == 0){
+                                          if (_selectedIndex1 == 0) {
                                             country1 = false;
                                             genre1 = false;
                                           }
-                                          if(_selectedIndex1 == 1){
-                                            setState((){
+                                          if (_selectedIndex1 == 1) {
+                                            setState(() {
                                               country1 = true;
                                               genre1 = false;
                                             });
                                           }
-                                          if (_selectedIndex1 == 2){
-                                            setState((){
+                                          if (_selectedIndex1 == 2) {
+                                            setState(() {
                                               genre1 = true;
                                               country1 = false;
                                             });
@@ -518,7 +551,8 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                           width: constraints.maxWidth * 0.18,
                                           margin: EdgeInsets.only(
                                               left: constraints.maxWidth * 0.05,
-                                              right: constraints.maxWidth * 0.05),
+                                              right:
+                                                  constraints.maxWidth * 0.05),
                                           decoration: BoxDecoration(
                                               color: _selectedIndex1 != null &&
                                                       _selectedIndex1 == index
@@ -538,7 +572,8 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                               child: Text(
                                             language[index]['name'],
                                             style: TextStyle(
-                                                color: _selectedIndex1 != null &&
+                                                color: _selectedIndex1 !=
+                                                            null &&
                                                         _selectedIndex1 == index
                                                     ? Colors.black
                                                     : Colors.white),
@@ -560,18 +595,18 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                       return GestureDetector(
                                         onTap: () {
                                           _onSelected1(index);
-                                          if(_selectedIndex1 == 0){
+                                          if (_selectedIndex1 == 0) {
                                             country1 = false;
                                             genre1 = false;
                                           }
-                                          if(_selectedIndex1 == 1){
-                                            setState((){
+                                          if (_selectedIndex1 == 1) {
+                                            setState(() {
                                               country1 = true;
                                               genre1 = false;
                                             });
                                           }
-                                          if (_selectedIndex1 == 2){
-                                            setState((){
+                                          if (_selectedIndex1 == 2) {
+                                            setState(() {
                                               genre1 = true;
                                               country1 = false;
                                             });
@@ -581,7 +616,8 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                           width: constraints.maxWidth * 0.18,
                                           margin: EdgeInsets.only(
                                               left: constraints.maxWidth * 0.05,
-                                              right: constraints.maxWidth * 0.05),
+                                              right:
+                                                  constraints.maxWidth * 0.05),
                                           decoration: BoxDecoration(
                                               color: _selectedIndex1 != null &&
                                                       _selectedIndex1 == index
@@ -592,18 +628,21 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                               border: Border.all(
                                                   color: _selectedIndex1 !=
                                                               null &&
-                                                          _selectedIndex1 == index
+                                                          _selectedIndex1 ==
+                                                              index
                                                       ? Colors.blue
                                                       : Colors.grey.shade300)),
                                           child: Center(
-                                              child: Text(
-                                            language[index]['name'],
-                                            style: TextStyle(
-                                                color: _selectedIndex1 != null &&
-                                                        _selectedIndex1 == index
-                                                    ? Colors.white
-                                                    : Colors.black),
-                                          ),
+                                            child: Text(
+                                              language[index]['name'],
+                                              style: TextStyle(
+                                                  color:
+                                                      _selectedIndex1 != null &&
+                                                              _selectedIndex1 ==
+                                                                  index
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                            ),
                                           ),
                                         ),
                                       );
@@ -614,148 +653,186 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                           SizedBox(
                             height: constraints.maxHeight * 0.05,
                           ),
-                         country1 ?
-                         Container(
-                            width: constraints.maxHeight,
-                            height: constraints.maxHeight * 0.35,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
+                          country1
+                              ? Container(
+                                  width: constraints.maxHeight,
+                                  height: constraints.maxHeight * 0.35,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    // physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
 
-                              itemCount: 5,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.to(() => const SerialsCountryTheme());
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                          width: constraints.maxWidth * 0.50,
-                                          margin: EdgeInsets.only(
-                                              left: constraints.maxWidth * 0.01,
-                                              right: constraints.maxWidth * 0.02),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                "assets/rommel.jpg",
-                                                fit: BoxFit.cover,
-                                              ))),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          MovieName[index]["country"].toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                              fontSize: 15),
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Get.to(() =>
+                                              const SerialsCountryTheme());
+                                        },
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Container(
+                                                width:
+                                                    constraints.maxWidth * 0.50,
+                                                margin: EdgeInsets.only(
+                                                    left: constraints.maxWidth *
+                                                        0.01,
+                                                    right:
+                                                        constraints.maxWidth *
+                                                            0.02),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: Image.asset(
+                                                      "assets/rommel.jpg",
+                                                      fit: BoxFit.cover,
+                                                    ))),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                MovieName[index]["country"]
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white,
+                                                    fontSize: 15),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    ],
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ) : genre1 ?  Container(
-                           width: constraints.maxHeight,
-                           height: constraints.maxHeight * 0.35,
-                           child: ListView.builder(
-                             scrollDirection: Axis.horizontal,
-                             // physics: const NeverScrollableScrollPhysics(),
-                             shrinkWrap: true,
+                                )
+                              : genre1
+                                  ? Container(
+                                      width: constraints.maxHeight,
+                                      height: constraints.maxHeight * 0.35,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        // physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
 
-                             itemCount: 5,
-                             itemBuilder: (context, index) {
-                               return GestureDetector(
-                                 onTap: () {
-                                   Get.to(() => const SerialsGenerTheme());
-                                 },
-                                 child: Stack(
-                                   alignment: Alignment.center,
-                                   children: [
-                                     Container(
-                                         width: constraints.maxWidth * 0.50,
-                                         margin: EdgeInsets.only(
-                                             left: constraints.maxWidth * 0.01,
-                                             right: constraints.maxWidth * 0.02),
-                                         decoration: BoxDecoration(
-                                             borderRadius:
-                                             BorderRadius.circular(10)),
-                                         child: ClipRRect(
-                                             borderRadius: BorderRadius.circular(10),
-                                             child: Image.asset(
-                                               "assets/rommelA.jpg",
-                                               fit: BoxFit.cover,
-                                             ))),
-                                     Align(
-                                       alignment: Alignment.center,
-                                       child: Text(
-                                         MovieName[index]["genre"].toString(),
-                                         style: const TextStyle(
-                                             fontWeight: FontWeight.w500,
-                                             color: Colors.white,
-                                             fontSize: 15),
-                                       ),
-                                     ),
-                                   ],
-                                 ),
-                               );
-                             },
-                           ),
-                         ) :  Container(
-                           width: constraints.maxHeight,
-                           height: constraints.maxHeight * 0.35,
-                           child: ListView.builder(
-                             scrollDirection: Axis.horizontal,
-                             // physics: const NeverScrollableScrollPhysics(),
-                             shrinkWrap: true,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Get.to(() =>
+                                                  const SerialsGenerTheme());
+                                            },
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Container(
+                                                    width:
+                                                        constraints.maxWidth *
+                                                            0.50,
+                                                    margin: EdgeInsets.only(
+                                                        left: constraints
+                                                                .maxWidth *
+                                                            0.01,
+                                                        right: constraints
+                                                                .maxWidth *
+                                                            0.02),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.asset(
+                                                          "assets/rommelA.jpg",
+                                                          fit: BoxFit.cover,
+                                                        ))),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    MovieName[index]["genre"]
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  : Container(
+                                      width: constraints.maxHeight,
+                                      height: constraints.maxHeight * 0.35,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        // physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
 
-                             itemCount: 5,
-                             itemBuilder: (context, index) {
-                               return GestureDetector(
-                                 onTap: () {
-
-                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>const BottomMovieSeriesTheme()));
-                                   // Get.to(() => BottomMovieSeriesTheme());
-                                 },
-                                 child: Stack(
-                                   alignment: Alignment.center,
-                                   children: [
-                                     Container(
-                                         width: constraints.maxWidth * 0.50,
-                                         margin: EdgeInsets.only(
-                                             left: constraints.maxWidth * 0.01,
-                                             right: constraints.maxWidth * 0.02),
-                                         decoration: BoxDecoration(
-                                             borderRadius:
-                                             BorderRadius.circular(10)),
-                                         child: ClipRRect(
-                                             borderRadius: BorderRadius.circular(10),
-                                             child: Image.asset(
-                                               "assets/shawshank.png",
-                                               fit: BoxFit.cover,
-                                             ))),
-                                     Align(
-                                       alignment: Alignment.center,
-                                       child: Text(
-                                         MovieName[index]["name"].toString(),
-                                         style: const TextStyle(
-                                             fontWeight: FontWeight.w500,
-                                             color: Colors.white,
-                                             fontSize: 15),
-                                       ),
-                                     ),
-                                   ],
-                                 ),
-                               );
-                             },
-                           ),
-                         ),
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const BottomMovieSeriesTheme()));
+                                              // Get.to(() => BottomMovieSeriesTheme());
+                                            },
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Container(
+                                                    width:
+                                                        constraints.maxWidth *
+                                                            0.50,
+                                                    margin: EdgeInsets.only(
+                                                        left: constraints
+                                                                .maxWidth *
+                                                            0.01,
+                                                        right: constraints
+                                                                .maxWidth *
+                                                            0.02),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.asset(
+                                                          "assets/shawshank.png",
+                                                          fit: BoxFit.cover,
+                                                        ))),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    MovieName[index]["name"]
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
 
                           ///********************************* TOP 250 All Section ********************************///
                           SizedBox(
@@ -786,15 +863,18 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            _selectedIndex2==1?
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => const TopIMBDTheme()),
-                                            ): Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                builder: (context) => const SerialsTopIMBDTheme()));
+                                            _selectedIndex2 == 1
+                                                ? Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const TopIMBDTheme()),
+                                                  )
+                                                : Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const SerialsTopIMBDTheme()));
                                           },
                                           child: Container(
                                             child: Row(
@@ -802,15 +882,18 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                                 Text(
                                                   'All',
                                                   style: TextStyle(
-                                                      color: Provider.of<MyDynamicTheme>(
-                                                                  context)
-                                                              .isDarkMode
-                                                          ? Colors.white
-                                                          : Colors.blue,
+                                                      color:
+                                                          Provider.of<MyDynamicTheme>(
+                                                                      context)
+                                                                  .isDarkMode
+                                                              ? Colors.white
+                                                              : Colors.blue,
                                                       fontSize:
-                                                          ResponsiveFlutter.of(context)
+                                                          ResponsiveFlutter.of(
+                                                                  context)
                                                               .fontSize(1.8),
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       letterSpacing: 0.6),
                                                 ),
                                                 const SizedBox(
@@ -818,10 +901,12 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                                 ),
                                                 Icon(
                                                   Icons.arrow_forward_ios,
-                                                  color: Provider.of<MyDynamicTheme>(context)
-                                                      .isDarkMode
-                                                      ? Colors.white
-                                                      : Colors.blue,
+                                                  color:
+                                                      Provider.of<MyDynamicTheme>(
+                                                                  context)
+                                                              .isDarkMode
+                                                          ? Colors.white
+                                                          : Colors.blue,
                                                   size: 19,
                                                 ),
                                               ],
@@ -832,8 +917,6 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                     ),
                                   ),
                                 ),
-
-
                               ],
                             ),
                           ),
@@ -853,23 +936,22 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                       return GestureDetector(
                                         onTap: () {
                                           _onSelected2(index);
-                                          if(_selectedIndex2 == 0){
+                                          if (_selectedIndex2 == 0) {
                                             movies = false;
-
                                           }
-                                          if(_selectedIndex2 == 1){
-                                            setState((){
-                                               movies = true;
-                                               serial = false;
+                                          if (_selectedIndex2 == 1) {
+                                            setState(() {
+                                              movies = true;
+                                              serial = false;
                                             });
                                           }
-
                                         },
                                         child: Container(
                                           width: constraints.maxWidth * 0.18,
                                           margin: EdgeInsets.only(
                                               left: constraints.maxWidth * 0.05,
-                                              right: constraints.maxWidth * 0.05),
+                                              right:
+                                                  constraints.maxWidth * 0.05),
                                           decoration: BoxDecoration(
                                               color: _selectedIndex2 != null &&
                                                       _selectedIndex2 == index
@@ -889,7 +971,8 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                               child: Text(
                                             serials[index]['name'],
                                             style: TextStyle(
-                                                color: _selectedIndex2 != null &&
+                                                color: _selectedIndex2 !=
+                                                            null &&
                                                         _selectedIndex2 == index
                                                     ? Colors.black
                                                     : Colors.white),
@@ -911,12 +994,11 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                       return GestureDetector(
                                         onTap: () {
                                           _onSelected2(index);
-                                          if(_selectedIndex2 == 0){
+                                          if (_selectedIndex2 == 0) {
                                             movies = false;
-
                                           }
-                                          if(_selectedIndex2 == 1){
-                                            setState((){
+                                          if (_selectedIndex2 == 1) {
+                                            setState(() {
                                               movies = true;
                                               serial = false;
                                             });
@@ -926,7 +1008,8 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                           width: constraints.maxWidth * 0.18,
                                           margin: EdgeInsets.only(
                                               left: constraints.maxWidth * 0.05,
-                                              right: constraints.maxWidth * 0.05),
+                                              right:
+                                                  constraints.maxWidth * 0.05),
                                           decoration: BoxDecoration(
                                               color: _selectedIndex2 != null &&
                                                       _selectedIndex2 == index
@@ -937,14 +1020,16 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                                               border: Border.all(
                                                   color: _selectedIndex2 !=
                                                               null &&
-                                                          _selectedIndex2 == index
+                                                          _selectedIndex2 ==
+                                                              index
                                                       ? Colors.blue
                                                       : Colors.grey.shade300)),
                                           child: Center(
                                               child: Text(
                                             serials[index]['name'],
                                             style: TextStyle(
-                                                color: _selectedIndex2 != null &&
+                                                color: _selectedIndex2 !=
+                                                            null &&
                                                         _selectedIndex2 == index
                                                     ? Colors.white
                                                     : Colors.black),
@@ -958,109 +1043,138 @@ SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                             height: constraints.maxHeight * 0.03,
                           ),
                           Stack(
-                             alignment: Alignment.center,
+                            alignment: Alignment.center,
                             children: [
-                             movies == true ?
-                             Container(
-                                width: constraints.maxHeight,
-                                height: constraints.maxHeight * 0.35,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  // physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                          Get.to(const MoviePlayCategoryScreenTheme());
-                                      },
-                                      child: Stack(
-                                        alignment: Alignment.bottomRight,
-                                        children: [
-                                          Container(
-                                              width: constraints.maxWidth * 0.50,
-                                              margin: EdgeInsets.only(
-                                                  left: constraints.maxWidth * 0.01,
-                                                  right: constraints.maxWidth * 0.02),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.blue,
-                                                  borderRadius: BorderRadius.circular(10)),
-                                              child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  child: Image.asset(
-                                                    "assets/anime.png",
-                                                    fit: BoxFit.cover,
-                                                  ))),
-                                          Padding(
-                                            padding: const EdgeInsets.all(18.0),
-                                            child: Align(
+                              movies == true
+                                  ? Container(
+                                      width: constraints.maxHeight,
+                                      height: constraints.maxHeight * 0.35,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        // physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Get.to(
+                                                  const MoviePlayCategoryScreenTheme());
+                                            },
+                                            child: Stack(
                                               alignment: Alignment.bottomRight,
-                                              child: Text(
-                                                MovieName[index]["country"].toString(),
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
+                                              children: [
+                                                Container(
+                                                    width:
+                                                        constraints.maxWidth *
+                                                            0.50,
+                                                    margin: EdgeInsets.only(
+                                                        left: constraints
+                                                                .maxWidth *
+                                                            0.01,
+                                                        right: constraints
+                                                                .maxWidth *
+                                                            0.02),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.asset(
+                                                          "assets/anime.png",
+                                                          fit: BoxFit.cover,
+                                                        ))),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      18.0),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: Text(
+                                                      MovieName[index]
+                                                              ["country"]
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.white,
+                                                          fontSize: 15),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
+                                          );
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
-                              ) :
-                             Container(
-                               width: constraints.maxHeight,
-                               height: constraints.maxHeight * 0.35,
-                               child: ListView.builder(
-                                 scrollDirection: Axis.horizontal,
-                                 // physics: const NeverScrollableScrollPhysics(),
-                                 shrinkWrap: true,
-                                 itemCount: 5,
-                                 itemBuilder: (context, index) {
-                                   return GestureDetector(
-                                     onTap: () {
-                                       Get.to(const SeriesPlayCategoryScreenTheme());
-                                     },
-                                     child: Stack(
-                                       alignment: Alignment.bottomRight,
-                                       children: [
-                                         Container(
-                                             width: constraints.maxWidth * 0.50,
-                                             margin: EdgeInsets.only(
-                                                 left: constraints.maxWidth * 0.01,
-                                                 right: constraints.maxWidth * 0.02),
-                                             decoration: BoxDecoration(
-                                                 color: Colors.blue,
-                                                 borderRadius:
-                                                 BorderRadius.circular(10)),
-                                             child: ClipRRect(
-                                                 borderRadius: BorderRadius.circular(10),
-                                                 child: Image.asset(
-                                                   "assets/harem.png",
-                                                   fit: BoxFit.cover,
-                                                 ))),
-                                         Padding(
-                                           padding: const EdgeInsets.all(18.0),
-                                           child: Align(
-                                             alignment: Alignment.bottomRight,
-                                             child: Text(
-                                               MovieName[index]["name"].toString(),
-                                               style: const TextStyle(
-                                                   fontWeight: FontWeight.w500,
-                                                   color: Colors.white,
-                                                   fontSize: 15),
-                                             ),
-                                           ),
-                                         ),
-                                       ],
-                                     ),
-                                   );
-                                 },
-                               ),
-                             ),
-
+                                    )
+                                  : Container(
+                                      width: constraints.maxHeight,
+                                      height: constraints.maxHeight * 0.35,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        // physics: const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Get.to(
+                                                  const SeriesPlayCategoryScreenTheme());
+                                            },
+                                            child: Stack(
+                                              alignment: Alignment.bottomRight,
+                                              children: [
+                                                Container(
+                                                    width:
+                                                        constraints.maxWidth *
+                                                            0.50,
+                                                    margin: EdgeInsets.only(
+                                                        left: constraints
+                                                                .maxWidth *
+                                                            0.01,
+                                                        right: constraints
+                                                                .maxWidth *
+                                                            0.02),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.asset(
+                                                          "assets/harem.png",
+                                                          fit: BoxFit.cover,
+                                                        ))),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      18.0),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: Text(
+                                                      MovieName[index]["name"]
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.white,
+                                                          fontSize: 15),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
                             ],
                           ),
                           SizedBox(

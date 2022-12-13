@@ -1161,32 +1161,33 @@ class _MoviePlayAndAboutSectionState extends State<MoviePlayAndAboutSection> {
                                           ),
                                         ),
 
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 30),
-                                              child: Text(
-                                                "Actors",
-                                                style: TextStyle(
-                                                    fontSize: 30,
-                                                    color:
-                                                        Provider.of<MyDynamicTheme>(
-                                                                    context)
-                                                                .isDarkMode
-                                                            ? Colors.white
-                                                            : Colors.grey),
+                                        Container(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 30),
+                                                child: Text(
+                                                  "Actor Name",
+                                                  style: TextStyle(
+                                                      fontSize: 30,
+                                                      color:
+                                                          Provider.of<MyDynamicTheme>(
+                                                                      context)
+                                                                  .isDarkMode
+                                                              ? Colors.white
+                                                              : Colors.grey),
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
 
                                         Column(
-                                          // mainAxisAlignment:
-                                          //     MainAxisAlignment.start,
                                           children: <Widget>[
+                                            // *** Circular Avatar
                                             Container(
                                               height: 100,
                                               child: ListView.builder(
@@ -1196,33 +1197,25 @@ class _MoviePlayAndAboutSectionState extends State<MoviePlayAndAboutSection> {
                                                   itemCount: actorname.length,
                                                   itemBuilder:
                                                       (context, index) {
-                                                    return Card(
-                                                      child: Text(
-                                                        actorname[index],
-                                                        style: const TextStyle(
-                                                            fontSize: 15.0,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w800),
-                                                      ),
-                                                    );
-                                                  }),
-                                            ),
-                                            Container(
-                                              height: 100,
-                                              child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: actorname.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return CircleAvatar(
-                                                      radius: 30,
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                        actorimage[index],
-                                                      ),
+                                                    return Column(
+                                                      children: <Widget>[
+                                                        CircleAvatar(
+                                                          radius: 30,
+                                                          backgroundImage:
+                                                              NetworkImage(
+                                                            //: TODO
+                                                            "https://skyfilmnow.com/mov_img/${actorimage[index]}",
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          actorname[index],
+                                                          style: const TextStyle(
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w800),
+                                                        )
+                                                      ],
                                                     );
                                                   }),
                                             ),
